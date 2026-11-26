@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Dark Navy Mini Board Shadow (centered inside adaptive safe zone) -->
+    <path
+        android:fillColor="#440C1642"
+        android:pathData="M29,24 h50 a7,7 0 0 1 7,7 v50 a7,7 0 0 1 -7,7 h-50 a7,7 0 0 1 -7,-7 v-50 a7,7 0 0 1 7,-7 z" />
+
+    <!-- Top-Left Red Block Blast Cube (26..52, 26..52) -->
+    <path android:fillColor="#FFF53636" android:pathData="M30,26 h18 a4,4 0 0 1 4,4 v18 a4,4 0 0 1 -4,4 h-18 a4,4 0 0 1 -4,-4 v-18 a4,4 0 0 1 4,-4 z" />
+    <path android:fillColor="#FFFF8A8A" android:pathData="M28,27 L50,27 L46,31 L32,31 Z" />
+    <path android:fillColor="#FFA81313" android:pathData="M28,51 L32,47 L46,47 L50,51 Z" />
+
+    <!-- Top-Right Gold Yellow Block Blast Cube (56..82, 26..52) -->
+    <path android:fillColor="#FFFFCB05" android:pathData="M60,26 h18 a4,4 0 0 1 4,4 v18 a4,4 0 0 1 -4,4 h-18 a4,4 0 0 1 -4,-4 v-18 a4,4 0 0 1 4,-4 z" />
+    <path android:fillColor="#FFFFF282" android:pathData="M58,27 L80,27 L76,31 L62,31 Z" />
+    <path android:fillColor="#FFB07E00" android:pathData="M58,51 L62,47 L76,47 L80,51 Z" />
+
+    <!-- Bottom-Left Vivid Green Block Blast Cube (26..52, 56..82) -->
+    <path android:fillColor="#FF32CC1B" android:pathData="M30,56 h18 a4,4 0 0 1 4,4 v18 a4,4 0 0 1 -4,4 h-18 a4,4 0 0 1 -4,-4 v-18 a4,4 0 0 1 4,-4 z" />
+    <path android:fillColor="#FF8CFF75" android:pathData="M28,57 L50,57 L46,61 L32,61 Z" />
+    <path android:fillColor="#FF157A09" android:pathData="M28,81 L32,77 L46,77 L50,81 Z" />
+
+    <!-- Bottom-Right Electric Cyan Block Blast Cube (56..82, 56..82) -->
+    <path android:fillColor="#FF0EC2F5" android:pathData="M60,56 h18 a4,4 0 0 1 4,4 v18 a4,4 0 0 1 -4,4 h-18 a4,4 0 0 1 -4,-4 v-18 a4,4 0 0 1 4,-4 z" />
+    <path android:fillColor="#FF8CEEFF" android:pathData="M58,57 L80,57 L76,61 L62,61 Z" />
+    <path android:fillColor="#FF006DA1" android:pathData="M58,81 L62,77 L76,77 L80,81 Z" />
+
+    <!-- Sparkle Star Emblem in Center -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M54,42 L56.8,51.2 L66,54 L56.8,56.8 L54,66 L51.2,56.8 L42,54 L51.2,51.2 Z" />
+</vector>
