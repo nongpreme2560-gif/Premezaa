@@ -37,12 +37,11 @@
       padding-bottom: var(--safe-bottom);
     }
 
-    /* Top HUD Bar */
     .top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 16px 2px;
+      padding: 10px 14px 2px;
       z-index: 10;
       flex-shrink: 0;
     }
@@ -50,7 +49,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(15, 30, 90, 0.34);
+      background: rgba(15, 30, 90, 0.36);
       border: 1.5px solid rgba(150, 190, 255, 0.32);
       border-radius: 999px;
       padding: 5px 12px 5px 9px;
@@ -62,7 +61,7 @@
     .top-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
     .btn-mod {
       display: flex;
@@ -70,7 +69,7 @@
       gap: 5px;
       border: 0;
       border-radius: 999px;
-      padding: 7px 14px;
+      padding: 7px 13px;
       font-size: 13px;
       font-weight: 800;
       color: #ffffff;
@@ -78,27 +77,24 @@
       box-shadow: 0 3px 0 #581c87, inset 0 1px 0 rgba(255,255,255,0.45);
       cursor: pointer;
     }
-    .btn-mod:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #581c87;
-    }
+    .btn-mod:active { transform: translateY(2px); box-shadow: 0 1px 0 #581c87; }
     .btn-icon {
       width: 36px;
       height: 36px;
       border-radius: 50%;
       border: 1.5px solid rgba(255,255,255,0.3);
-      background: rgba(15, 30, 90, 0.36);
+      background: rgba(15, 30, 90, 0.38);
       color: #ffffff;
-      font-size: 17px;
+      font-size: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       box-shadow: 0 2px 0 rgba(10, 20, 60, 0.35);
     }
+    .btn-icon.muted { opacity: 0.55; }
     .btn-icon:active { transform: translateY(1.5px); }
 
-    /* Main Canvas Stage */
     #stageWrap {
       position: relative;
       flex: 1;
@@ -115,13 +111,11 @@
       touch-action: none;
     }
 
-    /* Game Over Overlay */
+    /* Game Over Overlay (No expensive backdrop-filter blur for instant smooth transition) */
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(18, 34, 96, 0.84);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(14, 28, 82, 0.88);
       display: none;
       align-items: center;
       justify-content: center;
@@ -137,7 +131,7 @@
       border-radius: 26px;
       padding: 24px 20px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(8, 16, 52, 0.65);
+      box-shadow: 0 18px 40px rgba(8, 16, 52, 0.65);
     }
     .modal-title {
       font-size: 28px;
@@ -147,7 +141,7 @@
       margin: 0 0 14px;
     }
     .score-box {
-      background: rgba(13, 24, 68, 0.65);
+      background: rgba(13, 24, 68, 0.68);
       border: 1.5px solid rgba(135, 178, 255, 0.35);
       border-radius: 18px;
       padding: 14px;
@@ -173,259 +167,127 @@
     .sheet-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(10, 18, 52, 0.56);
+      background: rgba(10, 18, 52, 0.58);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.18s ease;
       z-index: 30;
     }
-    .sheet-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .sheet-backdrop.open { opacity: 1; pointer-events: auto; }
     .sheet {
       position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      max-height: 82vh;
+      left: 0; right: 0; bottom: 0;
+      max-height: 84vh;
       background: linear-gradient(180deg, #1e3170 0%, #142152 100%);
       border-top: 2px solid rgba(130, 175, 255, 0.55);
       border-radius: 26px 26px 0 0;
       padding: 12px 18px calc(18px + var(--safe-bottom));
-      transform: translateY(104%);
-      transition: transform 0.26s cubic-bezier(0.2, 0.9, 0.3, 1);
+      transform: translate3d(0, 104%, 0);
+      transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1);
       z-index: 35;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      box-shadow: 0 -14px 40px rgba(0, 0, 0, 0.5);
+      will-change: transform;
     }
-    .sheet.open { transform: translateY(0); }
+    .sheet.open { transform: translate3d(0, 0, 0); }
     .sheet-handle {
-      width: 44px;
-      height: 5px;
-      border-radius: 99px;
-      background: rgba(255, 255, 255, 0.3);
-      margin: 0 auto 12px;
+      width: 44px; height: 5px; border-radius: 99px;
+      background: rgba(255, 255, 255, 0.3); margin: 0 auto 12px;
     }
     .sheet-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
     }
-    .sheet-title {
-      font-size: 17px;
-      font-weight: 900;
-      color: #ffffff;
-    }
-    .sheet-sub {
-      font-size: 12px;
-      color: #93c5fd;
-    }
+    .sheet-title { font-size: 17px; font-weight: 900; color: #ffffff; }
+    .sheet-sub { font-size: 12px; color: #93c5fd; }
     .btn-close {
-      border: 0;
-      border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 13px;
-      font-weight: 800;
-      background: rgba(255, 255, 255, 0.16);
-      color: #ffffff;
-      cursor: pointer;
+      border: 0; border-radius: 999px; padding: 6px 14px;
+      font-size: 13px; font-weight: 800; background: rgba(255, 255, 255, 0.16);
+      color: #ffffff; cursor: pointer;
     }
 
     .section {
-      margin-bottom: 14px;
-      padding-bottom: 14px;
+      margin-bottom: 13px; padding-bottom: 13px;
       border-bottom: 1px solid rgba(147, 197, 253, 0.18);
     }
     .section:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 4px; }
     .sec-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 13px;
-      font-weight: 800;
-      color: #e0f2fe;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 8px; font-size: 13px; font-weight: 800; color: #e0f2fe;
     }
     .btn-upload {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-size: 14px;
-      font-weight: 900;
-      color: #ffffff;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 12px 14px; border-radius: 14px;
+      font-size: 14px; font-weight: 900; color: #ffffff;
       background: linear-gradient(180deg, #3ea6ff 0%, #2563eb 100%);
       box-shadow: 0 4px 0 #1e40af, inset 0 1px 0 rgba(255,255,255,0.4);
-      cursor: pointer;
-      margin-bottom: 10px;
+      cursor: pointer; margin-bottom: 10px;
     }
     .btn-upload:active { transform: translateY(2px); box-shadow: 0 2px 0 #1e40af; }
 
-    .tex-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-    }
-    .tex-wrap {
-      position: relative;
-      aspect-ratio: 1;
-    }
+    .tex-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .tex-wrap { position: relative; aspect-ratio: 1; }
     .tex-btn {
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      background: #0f1b44;
-      cursor: pointer;
-      opacity: 0.4;
-      filter: grayscale(0.7);
-      transition: transform 0.12s ease, opacity 0.12s ease;
+      width: 100%; height: 100%; padding: 0; border-radius: 12px; overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.2); background: #0f1b44;
+      cursor: pointer; opacity: 0.4; filter: grayscale(0.7);
     }
     .tex-btn.on {
-      opacity: 1;
-      filter: none;
-      border-color: #38bdf8;
+      opacity: 1; filter: none; border-color: #38bdf8;
       box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.45);
     }
-    .tex-btn img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .tex-btn img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .vid-badge {
-      position: absolute;
-      bottom: 4px;
-      right: 4px;
-      background: rgba(0, 0, 0, 0.78);
-      color: #ffffff;
-      font-size: 9px;
-      font-weight: 900;
-      padding: 1px 4px;
-      border-radius: 4px;
-      pointer-events: none;
+      position: absolute; bottom: 4px; right: 4px;
+      background: rgba(0, 0, 0, 0.78); color: #ffffff;
+      font-size: 9px; font-weight: 900; padding: 1px 4px; border-radius: 4px; pointer-events: none;
     }
     .del-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      border: 1.5px solid #ffffff;
-      background: #ef4444;
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 900;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+      position: absolute; top: -5px; right: -5px; width: 20px; height: 20px;
+      border-radius: 50%; border: 1.5px solid #ffffff; background: #ef4444;
+      color: #ffffff; font-size: 13px; font-weight: 900; line-height: 1;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
 
-    .pill-row {
-      display: grid;
-      gap: 8px;
-    }
+    .pill-row { display: grid; gap: 8px; }
     .pill-row.cols-2 { grid-template-columns: 1fr 1fr; }
     .pill-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
     .pill {
-      border: 1.5px solid rgba(147, 197, 253, 0.28);
-      background: rgba(15, 28, 74, 0.65);
-      color: #dbeafe;
-      border-radius: 12px;
-      padding: 9px 8px;
-      font-size: 12px;
-      font-weight: 800;
-      text-align: center;
-      cursor: pointer;
+      border: 1.5px solid rgba(147, 197, 253, 0.28); background: rgba(15, 28, 74, 0.65);
+      color: #dbeafe; border-radius: 12px; padding: 9px 8px;
+      font-size: 12px; font-weight: 800; text-align: center; cursor: pointer;
     }
     .pill.active {
-      border-color: #38bdf8;
-      background: rgba(37, 99, 235, 0.55);
-      color: #ffffff;
-      box-shadow: 0 0 0 1.5px rgba(56, 189, 248, 0.4);
+      border-color: #38bdf8; background: rgba(37, 99, 235, 0.55); color: #ffffff;
     }
-    .pill small {
-      display: block;
-      font-size: 10px;
-      font-weight: 500;
-      color: #93c5fd;
-      margin-top: 2px;
-    }
+    .pill small { display: block; font-size: 10px; font-weight: 500; color: #93c5fd; margin-top: 2px; }
 
-    .toggle-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .toggle-row { display: flex; flex-wrap: wrap; gap: 8px; }
     .chip {
-      border: 1.5px solid rgba(147, 197, 253, 0.3);
-      background: rgba(15, 28, 74, 0.65);
-      color: #e0f2fe;
-      border-radius: 10px;
-      padding: 8px 12px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
+      border: 1.5px solid rgba(147, 197, 253, 0.3); background: rgba(15, 28, 74, 0.65);
+      color: #e0f2fe; border-radius: 10px; padding: 8px 12px;
+      font-size: 12px; font-weight: 700; cursor: pointer;
     }
-    .chip.on {
-      border-color: #4ade80;
-      background: rgba(22, 163, 74, 0.35);
-      color: #ffffff;
-    }
-    .chip.danger {
-      border-color: rgba(248, 113, 113, 0.5);
-      color: #fca5a5;
-    }
+    .chip.on { border-color: #4ade80; background: rgba(22, 163, 74, 0.35); color: #ffffff; }
+    .chip.danger { border-color: rgba(248, 113, 113, 0.5); color: #fca5a5; }
     .link-btn {
-      border: 0;
-      background: transparent;
-      color: #7dd3fc;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      padding: 2px 4px;
+      border: 0; background: transparent; color: #7dd3fc;
+      font-size: 12px; font-weight: 700; cursor: pointer; padding: 2px 4px;
     }
     .hidden { display: none !important; }
 
-    /* Toast */
     #toast {
-      position: fixed;
-      left: 50%;
-      bottom: calc(24px + var(--safe-bottom));
+      position: fixed; left: 50%; bottom: calc(24px + var(--safe-bottom));
       transform: translateX(-50%) translateY(20px);
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(125, 211, 252, 0.45);
-      color: #ffffff;
-      padding: 9px 16px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.22s ease;
-      z-index: 60;
-      white-space: nowrap;
+      background: rgba(15, 23, 42, 0.94); border: 1px solid rgba(125, 211, 252, 0.45);
+      color: #ffffff; padding: 9px 16px; border-radius: 999px;
+      font-size: 12px; font-weight: 700; opacity: 0; pointer-events: none;
+      transition: all 0.2s ease; z-index: 60; white-space: nowrap;
     }
-    #toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
   <div id="app">
-    <!-- Top HUD -->
     <div class="top-bar">
       <div class="best-pill" title="คะแนนสูงสุด">
         <span>👑</span>
@@ -436,11 +298,11 @@
           <span>🎨</span>
           <span>ใส่รูป/วิดีโอ</span>
         </button>
+        <button id="btnTopBgm" type="button" class="btn-icon" title="เปิด/ปิดเพลงประกอบ">🎵</button>
         <button id="btnQuickRestart" type="button" class="btn-icon" title="เริ่มเกมใหม่">↻</button>
       </div>
     </div>
 
-    <!-- Full-Screen Responsive Canvas Stage -->
     <div id="stageWrap">
       <canvas id="gameCanvas"></canvas>
     </div>
@@ -458,14 +320,14 @@
     </div>
   </div>
 
-  <!-- Mod Studio Bottom Sheet -->
+  <!-- Mod Studio Sheet -->
   <div id="sheetBackdrop" class="sheet-backdrop"></div>
   <div id="modSheet" class="sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
       <div>
         <div class="sheet-title">Preme's mod Studio</div>
-        <div class="sheet-sub">บันทึกไฟล์รูป/วิดีโอเก็บในเครื่องอัตโนมัติ (ออฟไลน์ 100%)</div>
+        <div class="sheet-sub">v1.1 ลื่น 120Hz • บันทึกรูป/วิดีโอ/เพลงในเครื่องออฟไลน์</div>
       </div>
       <button id="btnCloseMod" type="button" class="btn-close">เสร็จสิ้น</button>
     </div>
@@ -479,16 +341,14 @@
           <button id="btnClearCustom" type="button" class="link-btn hidden" style="color:#fca5a5;">ล้างที่เพิ่ม</button>
         </div>
       </div>
-
       <label class="btn-upload">
         <span>📷 เพิ่มรูป หรือ วิดีโอ (MP4/MOV)</span>
         <input id="fileInput" type="file" accept="image/*,video/*" multiple class="hidden" />
       </label>
-
       <div id="textureGrid" class="tex-grid"></div>
     </div>
 
-    <!-- 2. Cube 3D Bevel Style -->
+    <!-- 2. Cube Style -->
     <div class="section">
       <div class="sec-head"><span>2. สไตล์เหลี่ยมบล็อก 3D</span></div>
       <div class="pill-row cols-2">
@@ -522,16 +382,22 @@
       </div>
     </div>
 
-    <!-- 4. Background & Settings -->
+    <!-- 4. Music, Background & Controls -->
     <div class="section">
-      <div class="sec-head"><span>4. พื้นหลังตาราง & ตั้งค่าเกม</span></div>
+      <div class="sec-head"><span>4. เพลงประกอบ, พื้นหลัง & ตั้งค่า</span></div>
       <div class="toggle-row">
+        <button id="btnBgm" type="button" class="chip on">🎵 เพลงประกอบ: เปิด</button>
         <label class="chip">
-          🌄 ใส่พื้นหลัง (รูป/วิดีโอ)
+          🎧 ใส่เพลงเอง (MP3)
+          <input id="bgmFileInput" type="file" accept="audio/*" class="hidden" />
+        </label>
+        <button id="btnClearBgm" type="button" class="chip danger hidden">ใช้เพลงเกมเดิม</button>
+        <label class="chip">
+          🌄 พื้นหลัง (รูป/วิดีโอ)
           <input id="bgFileInput" type="file" accept="image/*,video/*" class="hidden" />
         </label>
         <button id="btnClearBg" type="button" class="chip danger hidden">ลบพื้นหลัง</button>
-        <button id="btnSound" type="button" class="chip on">🔊 เสียงเกม: เปิด</button>
+        <button id="btnSound" type="button" class="chip on">🔊 เสียงเอฟเฟกต์: เปิด</button>
         <button id="btnHaptic" type="button" class="chip on">📳 สั่น: เปิด</button>
         <button id="btnVidAudio" type="button" class="chip hidden">🔇 เสียงวิดีโอ: ปิด</button>
       </div>
@@ -543,7 +409,7 @@
   <script>
     (() => {
       // ============================================================
-      // 1. PERSISTENT STORAGE (localStorage + IndexedDB for Photos/Videos!)
+      // 1. STORAGE (localStorage + IndexedDB for Photos/Videos/Music)
       // ============================================================
       function safeGet(k, fb) { try { return localStorage.getItem(k) ?? fb; } catch (e) { return fb; } }
       function safeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -554,14 +420,12 @@
 
       function openDB() {
         if (dbPromise) return dbPromise;
-        dbPromise = new Promise((resolve, reject) => {
+        dbPromise = new Promise((resolve) => {
           if (!window.indexedDB) return resolve(null);
           const req = indexedDB.open(DB_NAME, DB_VER);
           req.onupgradeneeded = (e) => {
             const db = e.target.result;
-            if (!db.objectStoreNames.contains('media')) {
-              db.createObjectStore('media', { keyPath: 'id' });
-            }
+            if (!db.objectStoreNames.contains('media')) db.createObjectStore('media', { keyPath: 'id' });
           };
           req.onsuccess = () => resolve(req.result);
           req.onerror = () => resolve(null);
@@ -618,12 +482,128 @@
       }
 
       // ============================================================
-      // 2. AUDIO & HAPTIC VIBRATION (Native Android Feel!)
+      // 2. AUDIO ENGINE: CHEERFUL BUILT-IN BGM + CUSTOM MP3 + SFX
       // ============================================================
       let soundOn = safeGet('pm_sound', '1') !== '0';
+      let bgmOn = safeGet('pm_bgm', '1') !== '0';
       let hapticOn = safeGet('pm_haptic', '1') !== '0';
       let videoAudioOn = false;
       let audioCtx = null;
+
+      // Custom MP3 BGM Audio Element
+      let customBgmAudio = null;
+      let customBgmUrl = null;
+
+      // Built-in Cheerful Cozy Puzzle Marimba/Kalimba BGM Sequencer (Web Audio API)
+      let bgmTimer = null;
+      let bgmStep = 0;
+
+      // Upbeat happy C-major / Am / F / G7 cozy arcade melody (MIDI notes, 0 = rest)
+      const BGM_MELODY = [
+        72, 0, 76, 79,  84, 0, 79, 76,   // C major bright bounce
+        74, 0, 77, 81,  79, 0, 76, 0,    // Dm -> G feel
+        72, 0, 76, 79,  81, 0, 79, 76,   // Am -> F playful
+        74, 76, 79, 0,  72, 0, 0, 0,     // Resolve C
+        79, 0, 81, 84,  88, 0, 84, 81,   // High joyful phrase
+        79, 0, 76, 79,  81, 0, 79, 0,
+        77, 0, 76, 74,  76, 0, 79, 76,
+        74, 0, 79, 74,  72, 0, 0, 0
+      ];
+      const BGM_BASS = [
+        48, 0, 0, 0,  55, 0, 0, 0,   // C
+        45, 0, 0, 0,  52, 0, 0, 0,   // Am
+        41, 0, 0, 0,  48, 0, 0, 0,   // F
+        43, 0, 47, 0, 48, 0, 0, 0,   // G -> C
+        48, 0, 0, 0,  55, 0, 0, 0,
+        45, 0, 0, 0,  52, 0, 0, 0,
+        41, 0, 0, 0,  48, 0, 0, 0,
+        43, 0, 50, 0, 48, 0, 0, 0
+      ];
+      const BGM_CHORD_NOTES = [
+        [60, 64, 67], [57, 60, 64], [53, 57, 60], [55, 59, 62]
+      ];
+
+      function midiToFreq(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+
+      function ensureAudioCtx() {
+        try {
+          if (!audioCtx) {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (Ctx) audioCtx = new Ctx();
+          }
+          if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume().catch(() => {});
+          }
+          return audioCtx;
+        } catch (e) { return null; }
+      }
+
+      function playMarimbaNote(freq, dur, vol, wave = 'triangle') {
+        const ctxA = audioCtx;
+        if (!ctxA || ctxA.state !== 'running') return;
+        const now = ctxA.currentTime;
+        const osc = ctxA.createOscillator();
+        const gain = ctxA.createGain();
+        osc.type = wave;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(vol, now + 0.012);
+        gain.gain.exponentialRampToValueAtTime(0.0008, now + dur);
+        osc.connect(gain);
+        gain.connect(ctxA.destination);
+        osc.start(now);
+        osc.stop(now + dur + 0.02);
+      }
+
+      function startBgm() {
+        if (!bgmOn || document.hidden) return;
+        if (customBgmAudio) {
+          stopSynthBgm();
+          customBgmAudio.volume = 0.42;
+          customBgmAudio.play().catch(() => {});
+          return;
+        }
+        ensureAudioCtx();
+        if (bgmTimer) return;
+        // 116 BPM eighth-note cozy groove (~258ms per step)
+        bgmTimer = setInterval(() => {
+          if (!bgmOn || document.hidden || customBgmAudio) return;
+          if (!audioCtx || audioCtx.state !== 'running') return;
+          const idx = bgmStep % BGM_MELODY.length;
+          const mel = BGM_MELODY[idx];
+          const bass = BGM_BASS[idx];
+          if (mel > 0) {
+            // Soft marimba lead + gentle sine overtone
+            playMarimbaNote(midiToFreq(mel), 0.24, 0.055, 'triangle');
+            playMarimbaNote(midiToFreq(mel + 12), 0.12, 0.014, 'sine');
+          }
+          if (bass > 0) {
+            playMarimbaNote(midiToFreq(bass), 0.36, 0.048, 'sine');
+          }
+          // Soft warm chord pad on beat 1 of each bar
+          if (idx % 8 === 0) {
+            const chord = BGM_CHORD_NOTES[Math.floor((idx / 8)) % 4];
+            chord.forEach(n => playMarimbaNote(midiToFreq(n), 0.65, 0.016, 'sine'));
+          }
+          bgmStep = (bgmStep + 1) % BGM_MELODY.length;
+        }, 255);
+      }
+
+      function stopSynthBgm() {
+        if (bgmTimer) { clearInterval(bgmTimer); bgmTimer = null; }
+      }
+
+      function stopAllBgm() {
+        stopSynthBgm();
+        if (customBgmAudio) {
+          try { customBgmAudio.pause(); } catch (e) {}
+        }
+      }
+
+      function unlockAudioAndBgm() {
+        ensureAudioCtx();
+        if (bgmOn) startBgm();
+      }
 
       function haptic(pattern) {
         if (!hapticOn) return;
@@ -636,51 +616,45 @@
         } catch (e) {}
       }
 
-      function playTone(freq, dur, type = 'sine', vol = 0.12, slideTo = null) {
+      function playSfx(freq, dur, type = 'sine', vol = 0.13, slideTo = null) {
         if (!soundOn) return;
+        const ctxA = ensureAudioCtx();
+        if (!ctxA) return;
         try {
-          if (!audioCtx) {
-            const Ctx = window.AudioContext || window.webkitAudioContext;
-            if (Ctx) audioCtx = new Ctx();
-          }
-          if (!audioCtx) return;
-          if (audioCtx.state === 'suspended') audioCtx.resume();
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
+          const now = ctxA.currentTime;
+          const osc = ctxA.createOscillator();
+          const gain = ctxA.createGain();
           osc.type = type;
-          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-          if (slideTo) osc.frequency.exponentialRampToValueAtTime(slideTo, audioCtx.currentTime + dur);
-          gain.gain.setValueAtTime(vol, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+          osc.frequency.setValueAtTime(freq, now);
+          if (slideTo) osc.frequency.exponentialRampToValueAtTime(slideTo, now + dur);
+          gain.gain.setValueAtTime(vol, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
           osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start();
-          osc.stop(audioCtx.currentTime + dur);
+          gain.connect(ctxA.destination);
+          osc.start(now);
+          osc.stop(now + dur + 0.02);
         } catch (e) {}
       }
 
-      function sfxPick() {
-        haptic(12);
-        playTone(390, 0.055, 'sine', 0.09, 570);
-      }
+      function sfxPick() { haptic(10); playSfx(390, 0.055, 'sine', 0.09, 570); }
       function sfxDrop() {
-        haptic(20);
-        playTone(260, 0.075, 'triangle', 0.15, 140);
-        setTimeout(() => playTone(520, 0.045, 'sine', 0.06, 680), 22);
+        haptic(18);
+        playSfx(260, 0.075, 'triangle', 0.15, 140);
+        setTimeout(() => playSfx(520, 0.045, 'sine', 0.06, 680), 22);
       }
       function sfxClear(combo) {
-        haptic([32, 24, 42]);
+        haptic([28, 22, 38]);
         const notes = [523.25, 659.25, 783.99, 1046.5];
         const shift = 1 + Math.min(combo - 1, 5) * 0.08;
-        notes.forEach((n, i) => setTimeout(() => playTone(n * shift, 0.18, 'triangle', 0.12), i * 48));
+        notes.forEach((n, i) => setTimeout(() => playSfx(n * shift, 0.18, 'triangle', 0.12), i * 48));
       }
       function sfxGameOver() {
-        haptic([60, 40, 80]);
-        [330, 277, 220].forEach((f, i) => setTimeout(() => playTone(f, 0.22, 'sawtooth', 0.07), i * 140));
+        haptic([55, 35, 75]);
+        [330, 277, 220].forEach((f, i) => setTimeout(() => playSfx(f, 0.22, 'sawtooth', 0.07), i * 140));
       }
 
       // ============================================================
-      // 3. AUTHENTIC BLOCK BLAST! COLORS & BUILT-IN SAMPLES
+      // 3. BLOCK BLAST! COLORS & SAMPLE TEXTURES
       // ============================================================
       const BB_COLORS = [
         { top: '#ff8a8a', left: '#ff5c5c', mid: '#f53636', right: '#d92323', bot: '#a81313', glow: '#ff6b6b' },
@@ -692,49 +666,8 @@
         { top: '#dc99ff', left: '#c066ff', mid: '#a338ff', right: '#831de0', bot: '#5c0ea8', glow: '#c978ff' },
       ];
 
-      // Built-in Live Motion Demo Texture
-      const liveDemoCanvas = document.createElement('canvas');
-      liveDemoCanvas.width = 160;
-      liveDemoCanvas.height = 160;
-      const liveDemoCtx = liveDemoCanvas.getContext('2d');
-
-      function updateLiveDemoTexture(t) {
-        const g = liveDemoCtx;
-        const S = 160;
-        const hue1 = (t * 55) % 360;
-        const hue2 = (hue1 + 95) % 360;
-        const gr = g.createLinearGradient(0, 0, S, S);
-        gr.addColorStop(0, `hsl(${hue1}, 95%, 62%)`);
-        gr.addColorStop(1, `hsl(${hue2}, 90%, 52%)`);
-        g.fillStyle = gr;
-        g.fillRect(0, 0, S, S);
-        for (let i = 0; i < 4; i++) {
-          const ang = t * 1.8 + i * 1.57;
-          const bx = S / 2 + Math.cos(ang) * 44;
-          const by = S / 2 + Math.sin(ang * 1.2) * 38;
-          g.fillStyle = 'rgba(255,255,255,0.32)';
-          g.beginPath(); g.arc(bx, by, 18 + Math.sin(t * 3 + i) * 5, 0, Math.PI * 2); g.fill();
-        }
-        g.save();
-        g.translate(S / 2, S / 2);
-        g.rotate(t * 1.4);
-        const sc = 0.88 + Math.sin(t * 4.5) * 0.14;
-        g.scale(sc, sc);
-        g.fillStyle = '#fff59d';
-        g.beginPath();
-        for (let i = 0; i < 10; i++) {
-          const r = i % 2 === 0 ? 38 : 17;
-          const a = (i * Math.PI) / 5;
-          i === 0 ? g.moveTo(Math.cos(a) * r, Math.sin(a) * r) : g.lineTo(Math.cos(a) * r, Math.sin(a) * r);
-        }
-        g.closePath();
-        g.fill();
-        g.restore();
-      }
-      updateLiveDemoTexture(0.5);
-
       function makeSampleTex(kind, label) {
-        const size = 180;
+        const size = 160;
         const c = document.createElement('canvas');
         c.width = size; c.height = size;
         const g = c.getContext('2d');
@@ -786,6 +719,17 @@
           g.fillStyle = '#38c72a';
           g.beginPath(); g.ellipse(98, 68, 30, 14, -0.35, 0, Math.PI * 2); g.fill();
           g.beginPath(); g.ellipse(158, 68, 30, 14, 0.35, 0, Math.PI * 2); g.fill();
+        } else if (kind === 'star') {
+          const gr = g.createLinearGradient(0, 0, 256, 256);
+          gr.addColorStop(0, '#60a5fa'); gr.addColorStop(1, '#7c3aed');
+          g.fillStyle = gr; g.fillRect(0, 0, 256, 256);
+          g.fillStyle = '#ffe03b';
+          g.beginPath();
+          for (let i = 0; i < 10; i++) {
+            const r = i % 2 === 0 ? 84 : 40, a = -Math.PI / 2 + (i * Math.PI) / 5;
+            i === 0 ? g.moveTo(128 + Math.cos(a)*r, 132 + Math.sin(a)*r) : g.lineTo(128 + Math.cos(a)*r, 132 + Math.sin(a)*r);
+          }
+          g.closePath(); g.fill();
         } else {
           const gr = g.createLinearGradient(0, 0, 256, 256);
           gr.addColorStop(0, '#fff0f7'); gr.addColorStop(1, '#ffa8d8');
@@ -802,19 +746,10 @@
       }
 
       const textures = [
-        {
-          id: 's_live_motion',
-          name: 'ภาพเคลื่อนไหว',
-          isCustom: false,
-          isVideo: true,
-          isLiveDemo: true,
-          enabled: true,
-          media: liveDemoCanvas,
-          thumbUrl: liveDemoCanvas.toDataURL('image/png'),
-        },
         makeSampleTex('cat', 'น้องแมว'),
         makeSampleTex('shiba', 'น้องหมา'),
         makeSampleTex('strawberry', 'สตรอว์เบอร์รี'),
+        makeSampleTex('star', 'ดาวน้อย'),
         makeSampleTex('sakura', 'ซากุระ'),
       ];
 
@@ -837,7 +772,192 @@
       }
 
       // ============================================================
-      // 4. GAME STATE & DYNAMIC MOBILE RESPONSIVE LAYOUT
+      // 4. ULTRA-FAST SPRITE & BOARD CACHE (ZERO PER-FRAME CLIP/GRADIENT!)
+      // ============================================================
+      const spriteCache = new Map();       // Static pre-baked 3D cubes
+      const overlayCache = new Map();      // Transparent 3D bevel overlay frames for video/piece/board modes
+      const videoFrameBuffers = new Map(); // 1-copy-per-frame video staging canvas (huge Android GPU speedup!)
+      let boardBgCache = null;             // Pre-baked 8x8 frame + 64 recessed sockets
+      let cachedDpr = 1;
+
+      function clearSpriteCache() {
+        spriteCache.clear();
+        overlayCache.clear();
+      }
+
+      function rrPath(c, x, y, w, h, r) {
+        const rad = Math.min(r, w / 2, h / 2);
+        c.beginPath();
+        c.moveTo(x + rad, y);
+        c.arcTo(x + w, y, x + w, y + h, rad);
+        c.arcTo(x + w, y + h, x, y + h, rad);
+        c.arcTo(x, y + h, x, y, rad);
+        c.arcTo(x, y, x + w, y, rad);
+        c.closePath();
+      }
+
+      function drawMediaCoverTo(targetCtx, media, dx, dy, dw, dh, subX = 0, subY = 0, subCols = 1, subRows = 1) {
+        if (!media) return;
+        const iw = media.width || media.naturalWidth || media.videoWidth;
+        const ih = media.height || media.naturalHeight || media.videoHeight;
+        if (!iw || !ih) return;
+        const tAsp = subCols / subRows;
+        const iAsp = iw / ih;
+        let sx = 0, sy = 0, sw = iw, sh = ih;
+        if (iAsp > tAsp) { sw = ih * tAsp; sx = (iw - sw) / 2; }
+        else { sh = iw / tAsp; sy = (ih - sh) / 2; }
+        const tw = sw / subCols, th = sh / subRows;
+        targetCtx.drawImage(media, sx + subX * tw, sy + subY * th, tw, th, dx, dy, dw, dh);
+      }
+
+      // Build cached 3D bevel overlay (for fast video / sliced tiles without ctx.clip per frame!)
+      function getBevelOverlaySprite(colorIdx, style, sz) {
+        const key = `${colorIdx}_${style}_${sz}`;
+        let spr = overlayCache.get(key);
+        if (spr) return spr;
+
+        const pal = BB_COLORS[colorIdx % BB_COLORS.length];
+        const px = Math.max(16, Math.round(sz * cachedDpr));
+        spr = document.createElement('canvas');
+        spr.width = px; spr.height = px;
+        const c = spr.getContext('2d');
+        c.scale(px / sz, px / sz);
+
+        const pad = Math.max(1.0, sz * 0.032);
+        const bx = pad, by = pad, bw = sz - pad * 2, bh = sz - pad * 2;
+        const rad = Math.max(3.5, sz * 0.14);
+        const bev = Math.max(3, bw * (style === 'framed' ? 0.155 : 0.13));
+
+        c.save();
+        rrPath(c, bx, by, bw, bh, rad);
+        c.clip();
+
+        if (style === 'framed') {
+          c.fillStyle = pal.top; c.beginPath(); c.moveTo(bx, by); c.lineTo(bx+bw, by); c.lineTo(bx+bw-bev, by+bev); c.lineTo(bx+bev, by+bev); c.closePath(); c.fill();
+          c.fillStyle = pal.left; c.beginPath(); c.moveTo(bx, by); c.lineTo(bx+bev, by+bev); c.lineTo(bx+bev, by+bh-bev); c.lineTo(bx, by+bh); c.closePath(); c.fill();
+          c.fillStyle = pal.right; c.beginPath(); c.moveTo(bx+bw, by); c.lineTo(bx+bw, by+bh); c.lineTo(bx+bw-bev, by+bh-bev); c.lineTo(bx+bw-bev, by+bev); c.closePath(); c.fill();
+          c.fillStyle = pal.bot; c.beginPath(); c.moveTo(bx, by+bh); c.lineTo(bx+bev, by+bh-bev); c.lineTo(bx+bw-bev, by+bh-bev); c.lineTo(bx+bw, by+bh); c.closePath(); c.fill();
+        } else {
+          c.fillStyle = 'rgba(255,255,255,0.38)'; c.beginPath(); c.moveTo(bx, by); c.lineTo(bx+bw, by); c.lineTo(bx+bw-bev, by+bev); c.lineTo(bx+bev, by+bev); c.closePath(); c.fill();
+          c.fillStyle = 'rgba(255,255,255,0.18)'; c.beginPath(); c.moveTo(bx, by); c.lineTo(bx+bev, by+bev); c.lineTo(bx+bev, by+bh-bev); c.lineTo(bx, by+bh); c.closePath(); c.fill();
+          c.fillStyle = 'rgba(0,0,0,0.18)'; c.beginPath(); c.moveTo(bx+bw, by); c.lineTo(bx+bw, by+bh); c.lineTo(bx+bw-bev, by+bh-bev); c.lineTo(bx+bw-bev, by+bev); c.closePath(); c.fill();
+          c.fillStyle = 'rgba(0,0,0,0.38)'; c.beginPath(); c.moveTo(bx, by+bh); c.lineTo(bx+bev, by+bh-bev); c.lineTo(bx+bw-bev, by+bh-bev); c.lineTo(bx+bw, by+bh); c.closePath(); c.fill();
+        }
+
+        // Specular gloss pill
+        c.fillStyle = 'rgba(255,255,255,0.52)';
+        c.beginPath();
+        c.ellipse(bx + bw * 0.22, by + bh * 0.14, Math.max(1.5, bw * 0.11), Math.max(1, bh * 0.05), -0.35, 0, Math.PI * 2);
+        c.fill();
+        c.restore();
+
+        rrPath(c, bx + 0.5, by + 0.5, bw - 1, bh - 1, rad);
+        c.strokeStyle = 'rgba(255,255,255,0.24)';
+        c.lineWidth = 1;
+        c.stroke();
+
+        overlayCache.set(key, spr);
+        return spr;
+      }
+
+      // Build complete static pre-baked cube sprite (1 drawImage per cell = 120 FPS!)
+      function getStaticCubeSprite(texObj, colorIdx, sz) {
+        const modeTag = useClassicSolid ? 'solid' : `${cubeStyle}_${texObj.id}`;
+        const key = `${modeTag}_${colorIdx}_${sz}`;
+        let spr = spriteCache.get(key);
+        if (spr) return spr;
+
+        const pal = BB_COLORS[colorIdx % BB_COLORS.length];
+        const px = Math.max(20, Math.round(sz * cachedDpr));
+        spr = document.createElement('canvas');
+        spr.width = px; spr.height = px;
+        const c = spr.getContext('2d');
+        c.scale(px / sz, px / sz);
+
+        const pad = Math.max(1.0, sz * 0.032);
+        const bx = pad, by = pad, bw = sz - pad * 2, bh = sz - pad * 2;
+        const rad = Math.max(3.5, sz * 0.14);
+        const bev = Math.max(3, bw * (cubeStyle === 'framed' ? 0.145 : 0.13));
+
+        // Soft bottom drop shadow baked right in!
+        rrPath(c, bx, by + 2.0, bw, bh, rad);
+        c.fillStyle = 'rgba(10, 20, 60, 0.34)';
+        c.fill();
+
+        c.save();
+        rrPath(c, bx, by, bw, bh, rad);
+        c.clip();
+
+        if (useClassicSolid) {
+          c.fillStyle = pal.mid; c.fillRect(bx, by, bw, bh);
+          c.fillStyle = pal.top; c.beginPath(); c.moveTo(bx, by); c.lineTo(bx+bw, by); c.lineTo(bx+bw-bev, by+bev); c.lineTo(bx+bev, by+bev); c.closePath(); c.fill();
+          c.fillStyle = pal.left; c.beginPath(); c.moveTo(bx, by); c.lineTo(bx+bev, by+bev); c.lineTo(bx+bev, by+bh-bev); c.lineTo(bx, by+bh); c.closePath(); c.fill();
+          c.fillStyle = pal.right; c.beginPath(); c.moveTo(bx+bw, by); c.lineTo(bx+bw, by+bh); c.lineTo(bx+bw-bev, by+bh-bev); c.lineTo(bx+bw-bev, by+bev); c.closePath(); c.fill();
+          c.fillStyle = pal.bot; c.beginPath(); c.moveTo(bx, by+bh); c.lineTo(bx+bev, by+bh-bev); c.lineTo(bx+bw-bev, by+bh-bev); c.lineTo(bx+bw, by+bh); c.closePath(); c.fill();
+          const cg = c.createLinearGradient(bx+bev, by+bev, bx+bev, by+bh-bev);
+          cg.addColorStop(0, pal.left); cg.addColorStop(0.45, pal.mid); cg.addColorStop(1, pal.right);
+          c.fillStyle = cg; c.fillRect(bx+bev, by+bev, bw-bev*2, bh-bev*2);
+        } else if (cubeStyle === 'framed') {
+          c.fillStyle = pal.top; c.beginPath(); c.moveTo(bx, by); c.lineTo(bx+bw, by); c.lineTo(bx+bw-bev, by+bev); c.lineTo(bx+bev, by+bev); c.closePath(); c.fill();
+          c.fillStyle = pal.left; c.beginPath(); c.moveTo(bx, by); c.lineTo(bx+bev, by+bev); c.lineTo(bx+bev, by+bh-bev); c.lineTo(bx, by+bh); c.closePath(); c.fill();
+          c.fillStyle = pal.right; c.beginPath(); c.moveTo(bx+bw, by); c.lineTo(bx+bw, by+bh); c.lineTo(bx+bw-bev, by+bh-bev); c.lineTo(bx+bw-bev, by+bev); c.closePath(); c.fill();
+          c.fillStyle = pal.bot; c.beginPath(); c.moveTo(bx, by+bh); c.lineTo(bx+bev, by+bh-bev); c.lineTo(bx+bw-bev, by+bh-bev); c.lineTo(bx+bw, by+bh); c.closePath(); c.fill();
+
+          const ix = bx + bev * 0.86, iy = by + bev * 0.86, iw = bw - bev * 1.72, ih = bh - bev * 1.72;
+          c.save();
+          rrPath(c, ix, iy, iw, ih, Math.max(1.5, rad * 0.45));
+          c.clip();
+          c.fillStyle = pal.mid; c.fillRect(ix, iy, iw, ih);
+          drawMediaCoverTo(c, texObj.media, ix, iy, iw, ih, 0, 0, 1, 1);
+          const sheen = c.createLinearGradient(ix, iy, ix, iy + ih * 0.55);
+          sheen.addColorStop(0, 'rgba(255,255,255,0.32)'); sheen.addColorStop(1, 'rgba(255,255,255,0)');
+          c.fillStyle = sheen; c.fillRect(ix, iy, iw, ih * 0.55);
+          c.restore();
+        } else {
+          c.fillStyle = pal.mid; c.fillRect(bx, by, bw, bh);
+          drawMediaCoverTo(c, texObj.media, bx, by, bw, bh, 0, 0, 1, 1);
+          c.fillStyle = 'rgba(255,255,255,0.40)'; c.beginPath(); c.moveTo(bx, by); c.lineTo(bx+bw, by); c.lineTo(bx+bw-bev, by+bev); c.lineTo(bx+bev, by+bev); c.closePath(); c.fill();
+          c.fillStyle = 'rgba(255,255,255,0.20)'; c.beginPath(); c.moveTo(bx, by); c.lineTo(bx+bev, by+bev); c.lineTo(bx+bev, by+bh-bev); c.lineTo(bx, by+bh); c.closePath(); c.fill();
+          c.fillStyle = 'rgba(0,0,0,0.20)'; c.beginPath(); c.moveTo(bx+bw, by); c.lineTo(bx+bw, by+bh); c.lineTo(bx+bw-bev, by+bh-bev); c.lineTo(bx+bw-bev, by+bev); c.closePath(); c.fill();
+          c.fillStyle = 'rgba(0,0,0,0.40)'; c.beginPath(); c.moveTo(bx, by+bh); c.lineTo(bx+bev, by+bh-bev); c.lineTo(bx+bw-bev, by+bh-bev); c.lineTo(bx+bw, by+bh); c.closePath(); c.fill();
+        }
+
+        c.fillStyle = 'rgba(255,255,255,0.56)';
+        c.beginPath();
+        c.ellipse(bx + bw * 0.22, by + bh * 0.14, Math.max(1.5, bw * 0.11), Math.max(1, bh * 0.05), -0.35, 0, Math.PI * 2);
+        c.fill();
+        c.restore();
+
+        rrPath(c, bx + 0.5, by + 0.5, bw - 1, bh - 1, rad);
+        c.strokeStyle = 'rgba(255,255,255,0.24)';
+        c.lineWidth = 1;
+        c.stroke();
+
+        spriteCache.set(key, spr);
+        return spr;
+      }
+
+      // Copy each active video into a tiny 192x192 buffer AT MOST once per 33ms (30fps video on 120fps gameplay!)
+      let lastVideoSync = 0;
+      function syncVideoBuffers(now) {
+        if (now - lastVideoSync < 32) return;
+        lastVideoSync = now;
+        textures.forEach(t => {
+          if (!(t.media instanceof HTMLVideoElement) || !t.enabled) return;
+          if (t.media.readyState < 2 || !t.media.videoWidth) return;
+          let buf = videoFrameBuffers.get(t.id);
+          if (!buf) {
+            buf = document.createElement('canvas');
+            buf.width = 192; buf.height = 192;
+            videoFrameBuffers.set(t.id, buf);
+          }
+          const bc = buf.getContext('2d');
+          drawMediaCoverTo(bc, t.media, 0, 0, 192, 192, 0, 0, 1, 1);
+        });
+      }
+
+      // ============================================================
+      // 5. GAME STATE & RESPONSIVE LAYOUT
       // ============================================================
       const SHAPES = [
         [[1]], [[1,1]], [[1],[1]], [[1,1,1]], [[1],[1],[1]], [[1,1,1,1]], [[1],[1],[1],[1]],
@@ -868,26 +988,66 @@
       let drag = null;
       let startTime = performance.now();
 
-      // Dynamic layout metrics (adapts to Poco X8 Pro Max 20:9, 16:9, tablets, etc.)
       const canvas = document.getElementById('gameCanvas');
       const stageWrap = document.getElementById('stageWrap');
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d', { alpha: true });
       let W = 390, H = 700;
       let BX = 18, BY = 80, B_SIZE = 354, CELL = 44;
       let TRAY_Y = 460, TRAY_H = 140;
       let SCORE_Y = 46;
 
+      // Pre-bake static 8x8 Board Frame + 64 Recessed Cells ONCE!
+      function rebuildBoardBgCache() {
+        const margin = 12;
+        const cw = B_SIZE + margin * 2;
+        const ch = B_SIZE + margin * 2;
+        const c = document.createElement('canvas');
+        c.width = Math.round(cw * cachedDpr);
+        c.height = Math.round(ch * cachedDpr);
+        const g = c.getContext('2d');
+        g.scale(cachedDpr, cachedDpr);
+
+        const ox = margin, oy = margin;
+        rrPath(g, ox - 8, oy - 3, B_SIZE + 16, B_SIZE + 16, 16);
+        g.fillStyle = 'rgba(14, 27, 82, 0.44)'; g.fill();
+        rrPath(g, ox - 7, oy - 7, B_SIZE + 14, B_SIZE + 14, 15);
+        const rimGrad = g.createLinearGradient(0, oy - 7, 0, oy + B_SIZE + 7);
+        rimGrad.addColorStop(0, '#72a0ff'); rimGrad.addColorStop(0.5, '#3b5fc7'); rimGrad.addColorStop(1, '#203685');
+        g.fillStyle = rimGrad; g.fill();
+
+        rrPath(g, ox - 2, oy - 2, B_SIZE + 4, B_SIZE + 4, 11);
+        g.fillStyle = '#182147'; g.fill();
+
+        const hasBg = !!bgMedia;
+        if (hasBg && !(bgMedia instanceof HTMLVideoElement)) {
+          g.save(); rrPath(g, ox, oy, B_SIZE, B_SIZE, 9); g.clip(); g.globalAlpha = 0.48;
+          drawMediaCoverTo(g, bgMedia, ox, oy, B_SIZE, B_SIZE); g.restore();
+        }
+
+        for (let r = 0; r < GRID_N; r++) {
+          for (let col = 0; col < GRID_N; col++) {
+            const cx = ox + col * CELL + 1.6, cy = oy + r * CELL + 1.6, sq = CELL - 3.2;
+            rrPath(g, cx, cy, sq, sq, 5);
+            g.fillStyle = hasBg ? 'rgba(22, 32, 74, 0.34)' : '#212e63';
+            g.fill();
+            g.strokeStyle = 'rgba(10, 15, 42, 0.55)'; g.lineWidth = 1; g.stroke();
+          }
+        }
+        boardBgCache = { canvas: c, margin };
+      }
+
       function resizeCanvas() {
         const rect = stageWrap.getBoundingClientRect();
         W = Math.max(280, Math.floor(rect.width));
         H = Math.max(420, Math.floor(rect.height));
-        const dpr = Math.min(window.devicePixelRatio || 1, 3);
-        canvas.width = Math.floor(W * dpr);
-        canvas.height = Math.floor(H * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        // Cap DPR at 2.0: razor sharp on Poco X8 Pro Max while slashing GPU pixel fill by >55%!
+        cachedDpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(W * cachedDpr);
+        canvas.height = Math.floor(H * cachedDpr);
+        ctx.setTransform(cachedDpr, 0, 0, cachedDpr, 0, 0);
 
-        const scoreArea = Math.max(60, Math.min(92, H * 0.125));
-        const trayArea = Math.max(115, Math.min(185, H * 0.24));
+        const scoreArea = Math.max(58, Math.min(90, H * 0.12));
+        const trayArea = Math.max(115, Math.min(182, H * 0.24));
         const maxBoardW = W - 28;
         const maxBoardH = H - scoreArea - trayArea - 26;
         const rawBoard = Math.min(maxBoardW, maxBoardH, 460);
@@ -901,12 +1061,14 @@
         BY = topOffset + scoreArea;
         TRAY_Y = BY + B_SIZE + 18;
         TRAY_H = Math.min(trayArea, H - TRAY_Y - 8);
-      }
 
+        clearSpriteCache();
+        rebuildBoardBgCache();
+      }
       window.addEventListener('resize', resizeCanvas);
 
       // ============================================================
-      // 5. CORE GAMEPLAY
+      // 6. CORE GAMEPLAY
       // ============================================================
       function canPlace(shape, r0, c0) {
         for (let r = 0; r < shape.length; r++) {
@@ -974,19 +1136,14 @@
         const pal = BB_COLORS[colorIdx % BB_COLORS.length];
         const cx = BX + (c + 0.5) * CELL;
         const cy = BY + (r + 0.5) * CELL;
-        for (let i = 0; i < 5; i++) {
-          const a = Math.random() * Math.PI * 2, sp = 2.0 + Math.random() * 4.5;
-          shards.push({ x: cx, y: cy, vx: Math.cos(a)*sp, vy: Math.sin(a)*sp - 2.6, sz: 7 + Math.random()*6, rot: Math.random()*Math.PI, vrot: (Math.random()-0.5)*0.25, pal, life: 1 });
+        for (let i = 0; i < 4; i++) {
+          const a = Math.random() * Math.PI * 2, sp = 2.0 + Math.random() * 4.2;
+          shards.push({ x: cx, y: cy, vx: Math.cos(a)*sp, vy: Math.sin(a)*sp - 2.4, sz: 7 + Math.random()*5, rot: Math.random()*Math.PI, vrot: (Math.random()-0.5)*0.24, pal, life: 1 });
         }
-        for (let i = 0; i < 2; i++) {
-          const a = Math.random() * Math.PI * 2, sp = 1.4 + Math.random() * 2.8;
-          stars.push({ x: cx, y: cy, vx: Math.cos(a)*sp, vy: Math.sin(a)*sp - 1.2, sz: 6 + Math.random()*5, life: 1 });
-        }
+        stars.push({ x: cx, y: cy, vx: (Math.random()-0.5)*3, vy: -1.5 - Math.random()*2, sz: 7 + Math.random()*4, life: 1 });
       }
 
-      function syncBestUI() {
-        document.getElementById('bestVal').textContent = bestScore.toLocaleString();
-      }
+      function syncBestUI() { document.getElementById('bestVal').textContent = bestScore.toLocaleString(); }
 
       function placePiece(piece, r0, c0, trayIdx) {
         const now = performance.now();
@@ -1024,7 +1181,7 @@
           const bonus = lines * 100 * lines + (comboStreak > 1 ? comboStreak * 60 : 0);
           score += bonus;
           if (score > bestScore) { bestScore = score; safeSet('pm_best', String(bestScore)); syncBestUI(); }
-          shakeTime = 12; shakeMag = Math.min(7, 2.5 + lines * 1.6);
+          shakeTime = 10; shakeMag = Math.min(6, 2 + lines * 1.4);
           sfxClear(comboStreak);
 
           const words = lines >= 3 ? 'Unbelievable!' : lines === 2 ? 'Awesome!' : comboStreak >= 2 ? `Combo x${comboStreak}!` : 'Good!';
@@ -1048,148 +1205,71 @@
       }
 
       // ============================================================
-      // 6. AUTHENTIC 4-FACET BLOCK BLAST! CUBE + MEDIA RENDERER
+      // 7. ULTRA-FAST BLOCK RENDERER (SPRITE-FIRST)
       // ============================================================
-      function resolveMedia(texId) {
+      function resolveTexObj(texId) {
         const active = getActiveTextures();
         const found = active.find(t => t.id === texId);
-        if (found) return found.media;
+        if (found) return found;
         let h = 0; for (let i = 0; i < (texId || '').length; i++) h = (h * 31 + texId.charCodeAt(i)) | 0;
-        return active[Math.abs(h) % active.length].media;
+        return active[Math.abs(h) % active.length];
       }
 
-      function rr(x, y, w, h, r) {
-        const rad = Math.min(r, w / 2, h / 2);
-        ctx.beginPath();
-        ctx.moveTo(x + rad, y);
-        ctx.arcTo(x + w, y, x + w, y + h, rad);
-        ctx.arcTo(x + w, y + h, x, y + h, rad);
-        ctx.arcTo(x, y + h, x, y, rad);
-        ctx.arcTo(x, y, x + w, y, rad);
-        ctx.closePath();
-      }
-
-      function drawMediaCover(media, dx, dy, dw, dh, subX = 0, subY = 0, subCols = 1, subRows = 1) {
-        if (!media) return;
-        const isVid = media instanceof HTMLVideoElement;
-        if (isVid && media.readyState < 2) return;
-        const iw = isVid ? media.videoWidth : (media.width || media.naturalWidth);
-        const ih = isVid ? media.videoHeight : (media.height || media.naturalHeight);
-        if (!iw || !ih) return;
-
-        const tAsp = subCols / subRows;
-        const iAsp = iw / ih;
-        let sx = 0, sy = 0, sw = iw, sh = ih;
-        if (iAsp > tAsp) { sw = ih * tAsp; sx = (iw - sw) / 2; }
-        else { sh = iw / tAsp; sy = (ih - sh) / 2; }
-
-        const tw = sw / subCols, th = sh / subRows;
-        ctx.drawImage(media, sx + subX * tw, sy + subY * th, tw, th, dx, dy, dw, dh);
-      }
-
-      function drawBlockMedia(ix, iy, iw, ih, o) {
-        const active = getActiveTextures();
-        if (imageMode === 'board') {
-          if (o.br != null && o.bc != null) drawMediaCover(active[0].media, ix, iy, iw, ih, o.bc, o.br, GRID_N, GRID_N);
-          else drawMediaCover(active[0].media, ix, iy, iw, ih, o.dc, o.dr, o.pCols, o.pRows);
-        } else if (imageMode === 'piece') {
-          drawMediaCover(resolveMedia(o.texId), ix, iy, iw, ih, o.dc, o.dr, o.pCols, o.pRows);
-        } else {
-          drawMediaCover(resolveMedia(o.texId), ix, iy, iw, ih, 0, 0, 1, 1);
-        }
-      }
-
-      function drawAuthenticCube(x, y, size, o) {
+      function drawFastCube(x, y, size, o) {
         const colorIdx = o.overrideColorIdx != null ? o.overrideColorIdx : o.colorIdx;
-        const pal = BB_COLORS[colorIdx % BB_COLORS.length];
-        const scale = o.scale ?? 1;
-        const pad = Math.max(1.0, size * 0.032);
-        const bx = x + pad, by = y + pad, bw = size - pad * 2, bh = size - pad * 2;
-        const rad = Math.max(3.5, size * 0.14);
-        const bev = Math.max(3, bw * (cubeStyle === 'framed' ? 0.145 : 0.13));
+        const szKey = Math.round(size);
+        const texObj = imageMode === 'board' ? getActiveTextures()[0] : resolveTexObj(o.texId);
+        const isVideoTex = !useClassicSolid && (texObj.media instanceof HTMLVideoElement);
+        const needsDynamicSlice = !useClassicSolid && (isVideoTex || imageMode === 'piece' || imageMode === 'board');
 
-        ctx.save();
-        ctx.globalAlpha = o.alpha ?? 1;
-        if (scale !== 1) {
-          ctx.translate(x + size / 2, y + size / 2);
-          ctx.scale(scale, scale);
-          ctx.translate(-(x + size / 2), -(y + size / 2));
-        }
+        const hasAlpha = (o.alpha != null && o.alpha < 1);
+        const hasScale = (o.scale != null && Math.abs(o.scale - 1) > 0.005);
 
-        if (!o.isGhost) {
-          rr(bx, by + 2.2, bw, bh, rad);
-          ctx.fillStyle = 'rgba(10, 20, 60, 0.36)';
-          ctx.fill();
-        }
-
-        ctx.save();
-        rr(bx, by, bw, bh, rad);
-        ctx.clip();
-
-        if (useClassicSolid) {
-          ctx.fillStyle = pal.mid; ctx.fillRect(bx, by, bw, bh);
-          ctx.fillStyle = pal.top; ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx+bw, by); ctx.lineTo(bx+bw-bev, by+bev); ctx.lineTo(bx+bev, by+bev); ctx.closePath(); ctx.fill();
-          ctx.fillStyle = pal.left; ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx+bev, by+bev); ctx.lineTo(bx+bev, by+bh-bev); ctx.lineTo(bx, by+bh); ctx.closePath(); ctx.fill();
-          ctx.fillStyle = pal.right; ctx.beginPath(); ctx.moveTo(bx+bw, by); ctx.lineTo(bx+bw, by+bh); ctx.lineTo(bx+bw-bev, by+bh-bev); ctx.lineTo(bx+bw-bev, by+bev); ctx.closePath(); ctx.fill();
-          ctx.fillStyle = pal.bot; ctx.beginPath(); ctx.moveTo(bx, by+bh); ctx.lineTo(bx+bev, by+bh-bev); ctx.lineTo(bx+bw-bev, by+bh-bev); ctx.lineTo(bx+bw, by+bh); ctx.closePath(); ctx.fill();
-          const cg = ctx.createLinearGradient(bx+bev, by+bev, bx+bev, by+bh-bev);
-          cg.addColorStop(0, pal.left); cg.addColorStop(0.45, pal.mid); cg.addColorStop(1, pal.right);
-          ctx.fillStyle = cg; ctx.fillRect(bx+bev, by+bev, bw-bev*2, bh-bev*2);
-        } else if (cubeStyle === 'framed') {
-          ctx.fillStyle = pal.top; ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx+bw, by); ctx.lineTo(bx+bw-bev, by+bev); ctx.lineTo(bx+bev, by+bev); ctx.closePath(); ctx.fill();
-          ctx.fillStyle = pal.left; ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx+bev, by+bev); ctx.lineTo(bx+bev, by+bh-bev); ctx.lineTo(bx, by+bh); ctx.closePath(); ctx.fill();
-          ctx.fillStyle = pal.right; ctx.beginPath(); ctx.moveTo(bx+bw, by); ctx.lineTo(bx+bw, by+bh); ctx.lineTo(bx+bw-bev, by+bh-bev); ctx.lineTo(bx+bw-bev, by+bev); ctx.closePath(); ctx.fill();
-          ctx.fillStyle = pal.bot; ctx.beginPath(); ctx.moveTo(bx, by+bh); ctx.lineTo(bx+bev, by+bh-bev); ctx.lineTo(bx+bw-bev, by+bh-bev); ctx.lineTo(bx+bw, by+bh); ctx.closePath(); ctx.fill();
-
-          const ix = bx + bev * 0.86, iy = by + bev * 0.86, iw = bw - bev * 1.72, ih = bh - bev * 1.72;
+        if (hasAlpha || hasScale) {
           ctx.save();
-          rr(ix, iy, iw, ih, Math.max(1.5, rad * 0.45));
-          ctx.clip();
-          ctx.fillStyle = pal.mid; ctx.fillRect(ix, iy, iw, ih);
-          drawBlockMedia(ix, iy, iw, ih, o);
-          const sheen = ctx.createLinearGradient(ix, iy, ix, iy + ih * 0.55);
-          sheen.addColorStop(0, 'rgba(255,255,255,0.32)'); sheen.addColorStop(1, 'rgba(255,255,255,0)');
-          ctx.fillStyle = sheen; ctx.fillRect(ix, iy, iw, ih * 0.55);
-          ctx.restore();
-        } else {
-          ctx.fillStyle = pal.mid; ctx.fillRect(bx, by, bw, bh);
-          drawBlockMedia(bx, by, bw, bh, o);
-          ctx.fillStyle = 'rgba(255,255,255,0.40)'; ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx+bw, by); ctx.lineTo(bx+bw-bev, by+bev); ctx.lineTo(bx+bev, by+bev); ctx.closePath(); ctx.fill();
-          ctx.fillStyle = 'rgba(255,255,255,0.20)'; ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx+bev, by+bev); ctx.lineTo(bx+bev, by+bh-bev); ctx.lineTo(bx, by+bh); ctx.closePath(); ctx.fill();
-          ctx.fillStyle = 'rgba(0,0,0,0.20)'; ctx.beginPath(); ctx.moveTo(bx+bw, by); ctx.lineTo(bx+bw, by+bh); ctx.lineTo(bx+bw-bev, by+bh-bev); ctx.lineTo(bx+bw-bev, by+bev); ctx.closePath(); ctx.fill();
-          ctx.fillStyle = 'rgba(0,0,0,0.40)'; ctx.beginPath(); ctx.moveTo(bx, by+bh); ctx.lineTo(bx+bev, by+bh-bev); ctx.lineTo(bx+bw-bev, by+bh-bev); ctx.lineTo(bx+bw, by+bh); ctx.closePath(); ctx.fill();
+          if (hasAlpha) ctx.globalAlpha = o.alpha;
+          if (hasScale) {
+            ctx.translate(x + size / 2, y + size / 2);
+            ctx.scale(o.scale, o.scale);
+            ctx.translate(-(x + size / 2), -(y + size / 2));
+          }
         }
 
-        ctx.fillStyle = 'rgba(255,255,255,0.56)';
-        ctx.beginPath();
-        ctx.ellipse(bx + bw * 0.22, by + bh * 0.14, Math.max(1.5, bw * 0.11), Math.max(1, bh * 0.05), -0.35, 0, Math.PI * 2);
-        ctx.fill();
+        if (!needsDynamicSlice) {
+          // FAST PATH (95% of cases!): 1 single GPU texture blit!
+          const spr = getStaticCubeSprite(texObj, colorIdx, szKey);
+          ctx.drawImage(spr, x, y, size, size);
+        } else {
+          // DYNAMIC / VIDEO PATH: ZERO ctx.clip()! Draw image/video buffer + cached 3D bevel overlay!
+          const pad = Math.max(1.0, size * 0.032);
+          const inset = cubeStyle === 'framed' ? Math.max(3, size * 0.14) : pad;
+          const ix = x + inset, iy = y + inset, iw = size - inset * 2, ih = size - inset * 2;
+          const srcMedia = isVideoTex ? (videoFrameBuffers.get(texObj.id) || null) : texObj.media;
+
+          if (srcMedia) {
+            if (imageMode === 'board') {
+              if (o.br != null && o.bc != null) drawMediaCoverTo(ctx, srcMedia, ix, iy, iw, ih, o.bc, o.br, GRID_N, GRID_N);
+              else drawMediaCoverTo(ctx, srcMedia, ix, iy, iw, ih, o.dc, o.dr, o.pCols, o.pRows);
+            } else if (imageMode === 'piece') {
+              drawMediaCoverTo(ctx, srcMedia, ix, iy, iw, ih, o.dc, o.dr, o.pCols, o.pRows);
+            } else {
+              ctx.drawImage(srcMedia, ix, iy, iw, ih);
+            }
+          }
+          const ov = getBevelOverlaySprite(colorIdx, cubeStyle, szKey);
+          ctx.drawImage(ov, x, y, size, size);
+        }
 
         if (o.hl) {
-          const pulse = 0.25 + 0.2 * Math.sin(performance.now() * 0.016);
-          ctx.fillStyle = `rgba(255, 255, 255, ${pulse})`;
-          ctx.fillRect(bx, by, bw, bh);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.34)';
+          ctx.fillRect(x + 2, y + 2, size - 4, size - 4);
         }
-        ctx.restore();
 
-        rr(bx + 0.5, by + 0.5, bw - 1, bh - 1, rad);
-        ctx.strokeStyle = o.hl ? '#ffffff' : 'rgba(255,255,255,0.24)';
-        ctx.lineWidth = o.hl ? 2.2 : 1;
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      function drawStar(x, y, r, alpha) {
-        ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = '#ffffff'; ctx.beginPath();
-        for (let i = 0; i < 8; i++) {
-          const rad = i % 2 === 0 ? r : r * 0.32, a = (i * Math.PI) / 4;
-          i === 0 ? ctx.moveTo(x + Math.cos(a)*rad, y + Math.sin(a)*rad) : ctx.lineTo(x + Math.cos(a)*rad, y + Math.sin(a)*rad);
-        }
-        ctx.closePath(); ctx.fill(); ctx.restore();
+        if (hasAlpha || hasScale) ctx.restore();
       }
 
       // ============================================================
-      // 7. TOUCH & MOUSE DRAG-AND-DROP (Optimized for Android Thumbs!)
+      // 8. INPUT HANDLING (120Hz Touch-Responsive)
       // ============================================================
       function slotRect(i) {
         const sw = B_SIZE / 3;
@@ -1207,6 +1287,7 @@
         const tly = drag.y - drag.liftY - (p.rows * CELL) / 2;
         const c = Math.round((tlx - BX) / CELL);
         const r = Math.round((tly - BY) / CELL);
+        if (r === drag.snapR && c === drag.snapC) return; // Skip redundant checks when cell hasn't changed!
         drag.snapR = r; drag.snapC = c;
         drag.valid = canPlace(p.shape, r, c);
         const pr = drag.valid ? getPreviewClears(p.shape, r, c) : { rows: [], cols: [] };
@@ -1214,6 +1295,7 @@
       }
 
       canvas.addEventListener('pointerdown', (e) => {
+        unlockAudioAndBgm();
         resumeAllVideos();
         if (gameOver) return;
         const pt = getPt(e);
@@ -1228,7 +1310,7 @@
               trayIdx: i, piece, pid: e.pointerId,
               x: pt.x, y: pt.y,
               liftY: isTouch ? Math.max(76, CELL * 2.05) : 26,
-              snapR: -1, snapC: -1, valid: false, pRows: [], pCols: []
+              snapR: -99, snapC: -99, valid: false, pRows: [], pCols: []
             };
             updateSnap();
             sfxPick();
@@ -1252,37 +1334,31 @@
       canvas.addEventListener('pointerup', endDrag);
       canvas.addEventListener('pointercancel', endDrag);
 
+      // Unlock BGM on any first button tap too
+      document.addEventListener('pointerdown', unlockAudioAndBgm, { once: true });
+
       // ============================================================
-      // 8. 120HZ RENDER LOOP
+      // 9. BUTTER-SMOOTH 120HZ RENDER LOOP
       // ============================================================
       function draw(now) {
-        const t = (now - startTime) * 0.001;
-        if (!useClassicSolid && textures.some(tx => tx.isLiveDemo && tx.enabled)) {
-          updateLiveDemoTexture(t);
-        }
+        syncVideoBuffers(now);
+
         if (displayScore < score) {
-          displayScore += Math.max(1, Math.ceil((score - displayScore) * 0.22));
+          displayScore += Math.max(1, Math.ceil((score - displayScore) * 0.24));
           if (displayScore > score) displayScore = score;
         }
-        if (scorePop > 0) scorePop = Math.max(0, scorePop - 0.06);
+        if (scorePop > 0) scorePop = Math.max(0, scorePop - 0.07);
 
         ctx.clearRect(0, 0, W, H);
         ctx.save();
         if (shakeTime > 0) {
           ctx.translate((Math.random() - 0.5) * shakeMag, (Math.random() - 0.5) * shakeMag);
-          shakeTime--; shakeMag *= 0.88;
+          shakeTime--; shakeMag *= 0.86;
         }
 
-        // Top ambient glow
-        const topGlow = ctx.createRadialGradient(W / 2, SCORE_Y, 12, W / 2, SCORE_Y + 20, W * 0.55);
-        topGlow.addColorStop(0, 'rgba(175, 212, 255, 0.30)');
-        topGlow.addColorStop(1, 'rgba(175, 212, 255, 0)');
-        ctx.fillStyle = topGlow;
-        ctx.fillRect(0, 0, W, BY + 40);
-
-        // Huge Plump White Score
+        // Big Plump White Score
         ctx.save();
-        const scScale = 1 + scorePop * 0.16;
+        const scScale = 1 + scorePop * 0.15;
         ctx.translate(W / 2, SCORE_Y);
         ctx.scale(scScale, scScale);
         const fontSize = Math.max(36, Math.min(48, Math.floor(CELL * 1.05)));
@@ -1296,156 +1372,163 @@
 
         // Combo Badge
         if (comboStreak >= 2) {
-          const cw = 84, ch = 26;
-          rr(W / 2 + 74, SCORE_Y - 28, cw, ch, 13);
-          const cg = ctx.createLinearGradient(0, SCORE_Y - 28, 0, SCORE_Y - 2);
-          cg.addColorStop(0, '#ffae19'); cg.addColorStop(1, '#ff5900');
-          ctx.fillStyle = cg; ctx.fill();
+          const cw = 82, ch = 26;
+          rrPath(ctx, W / 2 + 72, SCORE_Y - 28, cw, ch, 13);
+          ctx.fillStyle = '#ff7b00'; ctx.fill();
           ctx.strokeStyle = '#fff0a6'; ctx.lineWidth = 1.4; ctx.stroke();
           ctx.font = '900 12px system-ui, sans-serif';
           ctx.textAlign = 'center'; ctx.fillStyle = '#ffffff';
-          ctx.fillText(`🔥 x${comboStreak}`, W / 2 + 74 + cw / 2, SCORE_Y - 11);
+          ctx.fillText(`🔥 x${comboStreak}`, W / 2 + 72 + cw / 2, SCORE_Y - 11);
         }
 
-        // Board Frame
-        rr(BX - 8, BY - 3, B_SIZE + 16, B_SIZE + 16, 16);
-        ctx.fillStyle = 'rgba(14, 27, 82, 0.44)'; ctx.fill();
-        rr(BX - 7, BY - 7, B_SIZE + 14, B_SIZE + 14, 15);
-        const rimGrad = ctx.createLinearGradient(0, BY - 7, 0, BY + B_SIZE + 7);
-        rimGrad.addColorStop(0, '#72a0ff'); rimGrad.addColorStop(0.5, '#3b5fc7'); rimGrad.addColorStop(1, '#203685');
-        ctx.fillStyle = rimGrad; ctx.fill();
-
-        rr(BX - 2, BY - 2, B_SIZE + 4, B_SIZE + 4, 11);
-        ctx.fillStyle = '#182147'; ctx.fill();
-
-        if (bgMedia) {
-          ctx.save(); rr(BX, BY, B_SIZE, B_SIZE, 9); ctx.clip(); ctx.globalAlpha = 0.46;
-          drawMediaCover(bgMedia, BX, BY, B_SIZE, B_SIZE); ctx.restore();
-        } else if (imageMode === 'board' && !useClassicSolid) {
-          ctx.save(); rr(BX, BY, B_SIZE, B_SIZE, 9); ctx.clip(); ctx.globalAlpha = 0.22;
-          drawMediaCover(getActiveTextures()[0].media, BX, BY, B_SIZE, B_SIZE); ctx.restore();
+        // 1 Single Blit for the entire 8x8 board frame + 64 recessed sockets!
+        if (boardBgCache) {
+          ctx.drawImage(
+            boardBgCache.canvas,
+            BX - boardBgCache.margin,
+            BY - boardBgCache.margin,
+            B_SIZE + boardBgCache.margin * 2,
+            B_SIZE + boardBgCache.margin * 2
+          );
         }
 
-        // 64 Recessed Grid Cells
-        for (let r = 0; r < GRID_N; r++) {
-          for (let c = 0; c < GRID_N; c++) {
-            const cx = BX + c * CELL + 1.6, cy = BY + r * CELL + 1.6, cw = CELL - 3.2;
-            rr(cx, cy, cw, cw, 5);
-            ctx.fillStyle = bgMedia ? 'rgba(22, 32, 74, 0.36)' : '#212e63';
-            ctx.fill();
-            ctx.strokeStyle = 'rgba(10, 15, 42, 0.55)'; ctx.lineWidth = 1; ctx.stroke();
+        // Video background overlay (if user chose a video as board background)
+        if (bgMedia instanceof HTMLVideoElement && bgMedia.readyState >= 2) {
+          ctx.save();
+          ctx.globalAlpha = 0.42;
+          drawMediaCoverTo(ctx, bgMedia, BX, BY, B_SIZE, B_SIZE);
+          ctx.restore();
+        } else if (imageMode === 'board' && !useClassicSolid && !bgMedia) {
+          const master = getActiveTextures()[0];
+          const src = (master.media instanceof HTMLVideoElement) ? videoFrameBuffers.get(master.id) : master.media;
+          if (src) {
+            ctx.save(); ctx.globalAlpha = 0.2;
+            drawMediaCoverTo(ctx, src, BX, BY, B_SIZE, B_SIZE);
+            ctx.restore();
           }
         }
 
-        const prSet = new Set(drag && drag.valid ? drag.pRows : []);
-        const pcSet = new Set(drag && drag.valid ? drag.pCols : []);
-        const hoverColorIdx = (drag && drag.valid && (prSet.size || pcSet.size)) ? drag.piece.colorIdx : null;
+        const prSet = drag && drag.valid && drag.pRows.length ? new Set(drag.pRows) : null;
+        const pcSet = drag && drag.valid && drag.pCols.length ? new Set(drag.pCols) : null;
+        const hoverColorIdx = (prSet || pcSet) ? drag.piece.colorIdx : null;
 
         if (hoverColorIdx != null) {
           const pal = BB_COLORS[hoverColorIdx % BB_COLORS.length];
-          ctx.save(); ctx.globalAlpha = 0.26 + 0.12 * Math.sin(t * 12); ctx.fillStyle = pal.glow;
-          prSet.forEach(r => { rr(BX, BY + r * CELL, B_SIZE, CELL, 6); ctx.fill(); });
-          pcSet.forEach(c => { rr(BX + c * CELL, BY, CELL, B_SIZE, 6); ctx.fill(); });
+          ctx.save();
+          ctx.globalAlpha = 0.28;
+          ctx.fillStyle = pal.glow;
+          if (prSet) prSet.forEach(r => ctx.fillRect(BX, BY + r * CELL, B_SIZE, CELL));
+          if (pcSet) pcSet.forEach(c => ctx.fillRect(BX + c * CELL, BY, CELL, B_SIZE));
           ctx.restore();
         }
 
+        // Board Blocks
         for (let r = 0; r < GRID_N; r++) {
           for (let c = 0; c < GRID_N; c++) {
             const cell = board[r][c];
             if (!cell) continue;
-            const age = (now - (cell.placedAt || 0)) / 170;
-            const sc = age < 1 ? 1 + Math.sin(age * Math.PI) * 0.13 * (1 - age) : 1;
-            const willClear = prSet.has(r) || pcSet.has(c);
-            drawAuthenticCube(BX + c * CELL, BY + r * CELL, CELL, {
+            const age = (now - (cell.placedAt || 0)) / 160;
+            const sc = age < 1 ? 1 + Math.sin(age * Math.PI) * 0.12 * (1 - age) : 1;
+            const willClear = (prSet && prSet.has(r)) || (pcSet && pcSet.has(c));
+            drawFastCube(BX + c * CELL, BY + r * CELL, CELL, {
               texId: cell.texId, colorIdx: cell.colorIdx, overrideColorIdx: willClear ? hoverColorIdx : null,
               br: r, bc: c, dr: cell.cellDr, dc: cell.cellDc, pRows: cell.pieceRows, pCols: cell.pieceCols, hl: willClear, scale: sc,
             });
           }
         }
 
+        // Ghost Preview
         if (drag && drag.valid) {
           const p = drag.piece;
           for (let r = 0; r < p.rows; r++) for (let c = 0; c < p.cols; c++) {
             if (!p.shape[r][c]) continue;
             const br = drag.snapR + r, bc = drag.snapC + c;
-            drawAuthenticCube(BX + bc * CELL, BY + br * CELL, CELL, {
+            drawFastCube(BX + bc * CELL, BY + br * CELL, CELL, {
               texId: p.texId, colorIdx: p.colorIdx, br, bc, dr: r, dc: c, pRows: p.rows, pCols: p.cols,
-              alpha: 0.48, isGhost: true, hl: prSet.has(br) || pcSet.has(bc),
+              alpha: 0.45, hl: (prSet && prSet.has(br)) || (pcSet && pcSet.has(bc)),
             });
           }
         }
 
+        // Clear Flash Beams (No shadowBlur!)
         for (let i = beams.length - 1; i >= 0; i--) {
           const b = beams[i];
-          ctx.save(); ctx.globalAlpha = b.life * 0.85; ctx.fillStyle = '#ffffff'; ctx.shadowColor = b.color; ctx.shadowBlur = 16;
-          if (b.type === 'row') { const h = CELL * b.life; rr(BX, BY + b.idx * CELL + (CELL - h)/2, B_SIZE, h, 9); }
-          else { const w = CELL * b.life; rr(BX + b.idx * CELL + (CELL - w)/2, BY, w, B_SIZE, 9); }
-          ctx.fill(); ctx.restore();
-          b.life -= 0.09; if (b.life <= 0) beams.splice(i, 1);
+          ctx.save(); ctx.globalAlpha = b.life * 0.85; ctx.fillStyle = '#ffffff';
+          if (b.type === 'row') { const h = CELL * b.life; ctx.fillRect(BX, BY + b.idx * CELL + (CELL - h)/2, B_SIZE, h); }
+          else { const w = CELL * b.life; ctx.fillRect(BX + b.idx * CELL + (CELL - w)/2, BY, w, B_SIZE); }
+          ctx.restore();
+          b.life -= 0.1; if (b.life <= 0) beams.splice(i, 1);
         }
 
-        // Open Bright 3-Piece Tray
+        // 3-Piece Tray
+        const trayCellBase = Math.max(16, Math.floor(CELL * 0.56));
         for (let i = 0; i < 3; i++) {
           const p = tray[i];
           if (!p || (drag && drag.trayIdx === i)) continue;
           const sl = slotRect(i);
-          const cs = Math.max(16, Math.min(CELL * 0.62, (sl.w - 14) / Math.max(p.cols, 3), (sl.h - 16) / Math.max(p.rows, 3)));
-          const spawnAge = Math.min(1, (now - (p.spawnT || 0)) / 210);
-          const spScale = 0.65 + 0.35 * (1 - Math.pow(1 - spawnAge, 3));
+          const cs = Math.max(14, Math.min(trayCellBase, Math.floor((sl.w - 14) / Math.max(p.cols, 3)), Math.floor((sl.h - 16) / Math.max(p.rows, 3))));
+          const spawnAge = Math.min(1, (now - (p.spawnT || 0)) / 180);
+          const spScale = spawnAge < 1 ? (0.68 + 0.32 * (1 - Math.pow(1 - spawnAge, 3))) : 1;
           const ox = sl.x + (sl.w - p.cols * cs) / 2;
           const oy = sl.y + (sl.h - p.rows * cs) / 2;
           const fits = canFitAnywhere(p.shape);
           for (let r = 0; r < p.rows; r++) for (let c = 0; c < p.cols; c++) {
             if (!p.shape[r][c]) continue;
-            drawAuthenticCube(ox + c * cs, oy + r * cs, cs, {
+            drawFastCube(ox + c * cs, oy + r * cs, cs, {
               texId: p.texId, colorIdx: p.colorIdx, br: null, bc: null, dr: r, dc: c, pRows: p.rows, pCols: p.cols, alpha: fits ? 1 : 0.36, scale: spScale,
             });
           }
         }
 
-        // Particles
+        // Shards & Stars
         for (let i = shards.length - 1; i >= 0; i--) {
           const sh = shards[i];
-          sh.x += sh.vx; sh.y += sh.vy; sh.vy += 0.18; sh.rot += sh.vrot; sh.life -= 0.028;
+          sh.x += sh.vx; sh.y += sh.vy; sh.vy += 0.2; sh.rot += sh.vrot; sh.life -= 0.032;
           if (sh.life <= 0) { shards.splice(i, 1); continue; }
           ctx.save(); ctx.globalAlpha = sh.life; ctx.translate(sh.x, sh.y); ctx.rotate(sh.rot);
-          ctx.fillStyle = sh.pal.bot; ctx.fillRect(-sh.sz/2, -sh.sz/2, sh.sz, sh.sz);
-          ctx.fillStyle = sh.pal.mid; ctx.fillRect(-sh.sz/2 + 1, -sh.sz/2 + 1, sh.sz - 2, sh.sz - 2);
-          ctx.fillStyle = sh.pal.top; ctx.fillRect(-sh.sz/2 + 1, -sh.sz/2 + 1, sh.sz - 2, sh.sz * 0.32);
+          ctx.fillStyle = sh.pal.mid; ctx.fillRect(-sh.sz/2, -sh.sz/2, sh.sz, sh.sz);
+          ctx.fillStyle = sh.pal.top; ctx.fillRect(-sh.sz/2, -sh.sz/2, sh.sz, sh.sz * 0.35);
           ctx.restore();
         }
         for (let i = stars.length - 1; i >= 0; i--) {
-          const st = stars[i]; st.x += st.vx; st.y += st.vy; st.life -= 0.032;
+          const st = stars[i]; st.x += st.vx; st.y += st.vy; st.life -= 0.036;
           if (st.life <= 0) { stars.splice(i, 1); continue; }
-          drawStar(st.x, st.y, st.sz * st.life, st.life);
+          ctx.save(); ctx.globalAlpha = st.life; ctx.fillStyle = '#ffffff';
+          const sz = st.sz * st.life;
+          ctx.fillRect(st.x - sz, st.y - sz * 0.22, sz * 2, sz * 0.44);
+          ctx.fillRect(st.x - sz * 0.22, st.y - sz, sz * 0.44, sz * 2);
+          ctx.restore();
         }
 
-        // Dragged Piece
+        // Dragged Piece (Fast offset shadow — ZERO shadowBlur lag!)
         if (drag) {
           const p = drag.piece;
-          const cs = CELL * 1.03;
-          const ox = drag.x - (p.cols * cs) / 2, oy = drag.y - drag.liftY - (p.rows * cs) / 2;
-          ctx.save(); ctx.shadowColor = 'rgba(10, 22, 70, 0.5)'; ctx.shadowBlur = 20; ctx.shadowOffsetY = 12;
+          const cs = CELL;
+          const ox = drag.x - (p.cols * cs) / 2;
+          const oy = drag.y - drag.liftY - (p.rows * cs) / 2;
+
+          ctx.fillStyle = 'rgba(10, 22, 70, 0.28)';
+          for (let r = 0; r < p.rows; r++) for (let c = 0; c < p.cols; c++) {
+            if (p.shape[r][c]) ctx.fillRect(ox + c * cs + 5, oy + r * cs + 10, cs - 4, cs - 4);
+          }
           for (let r = 0; r < p.rows; r++) for (let c = 0; c < p.cols; c++) {
             if (!p.shape[r][c]) continue;
-            drawAuthenticCube(ox + c * cs, oy + r * cs, cs, {
+            drawFastCube(ox + c * cs, oy + r * cs, cs, {
               texId: p.texId, colorIdx: p.colorIdx, br: drag.valid ? drag.snapR + r : null, bc: drag.valid ? drag.snapC + c : null, dr: r, dc: c, pRows: p.rows, pCols: p.cols,
             });
           }
-          ctx.restore();
         }
 
         // Combo Popups
         for (let i = popups.length - 1; i >= 0; i--) {
-          const pop = popups[i]; pop.y -= 1.0; pop.life -= 0.019;
+          const pop = popups[i]; pop.y -= 1.0; pop.life -= 0.022;
           if (pop.life <= 0) { popups.splice(i, 1); continue; }
-          const sc = pop.life > 0.84 ? 0.55 + (1 - pop.life) * 3.8 : 1;
+          const sc = pop.life > 0.84 ? 0.6 + (1 - pop.life) * 3.2 : 1;
           ctx.save(); ctx.globalAlpha = Math.min(1, pop.life * 1.6); ctx.translate(pop.x, pop.y); ctx.scale(sc, sc); ctx.textAlign = 'center';
-          ctx.font = '900 30px system-ui, -apple-system, sans-serif'; ctx.lineWidth = 7; ctx.strokeStyle = '#1b2b7a';
+          ctx.font = '900 30px system-ui, -apple-system, sans-serif'; ctx.lineWidth = 6; ctx.strokeStyle = '#1b2b7a';
           ctx.strokeText(pop.title, 0, 2);
-          const tg = ctx.createLinearGradient(0, -24, 0, 6); tg.addColorStop(0, '#fff799'); tg.addColorStop(0.5, '#ffd026'); tg.addColorStop(1, '#ff8a00');
-          ctx.fillStyle = tg; ctx.fillText(pop.title, 0, 0);
-          ctx.font = '900 17px system-ui, sans-serif'; ctx.lineWidth = 4.5; ctx.strokeStyle = '#1b2b7a';
+          ctx.fillStyle = '#ffd633'; ctx.fillText(pop.title, 0, 0);
+          ctx.font = '900 17px system-ui, sans-serif'; ctx.lineWidth = 4; ctx.strokeStyle = '#1b2b7a';
           ctx.strokeText(pop.sub, 0, 22); ctx.fillStyle = '#ffffff'; ctx.fillText(pop.sub, 0, 22);
           ctx.restore();
         }
@@ -1455,7 +1538,7 @@
       }
 
       // ============================================================
-      // 9. MOD STUDIO SHEET + PERSISTENT IMAGE/VIDEO UPLOAD
+      // 10. MOD STUDIO UI + PERSISTENT MEDIA & MUSIC
       // ============================================================
       const modSheet = document.getElementById('modSheet');
       const sheetBackdrop = document.getElementById('sheetBackdrop');
@@ -1465,15 +1548,14 @@
       document.getElementById('btnCloseMod').addEventListener('click', closeSheet);
       sheetBackdrop.addEventListener('click', closeSheet);
 
-      function resizeImageToBlobAndCanvas(img, maxD = 512) {
+      function resizeImageToBlobAndCanvas(img, maxD = 384) {
         const iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
         const sc = Math.min(1, maxD / Math.max(iw, ih));
         const c = document.createElement('canvas');
-        c.width = Math.max(1, Math.round(iw * sc));
-        c.height = Math.max(1, Math.round(ih * sc));
+        c.width = Math.max(1, Math.round(iw * sc)); c.height = Math.max(1, Math.round(ih * sc));
         c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
         return new Promise((resolve) => {
-          c.toBlob((blob) => resolve({ canvas: c, blob, thumbUrl: c.toDataURL('image/jpeg', 0.8) }), 'image/jpeg', 0.88);
+          c.toBlob((blob) => resolve({ canvas: c, blob, thumbUrl: c.toDataURL('image/jpeg', 0.8) }), 'image/jpeg', 0.86);
         });
       }
 
@@ -1491,17 +1573,39 @@
 
       function captureVideoThumb(vid) {
         const tc = document.createElement('canvas');
-        tc.width = 140; tc.height = 140;
+        tc.width = 128; tc.height = 128;
         const tg = tc.getContext('2d');
-        const iw = vid.videoWidth || 140, ih = vid.videoHeight || 140;
+        const iw = vid.videoWidth || 128, ih = vid.videoHeight || 128;
         const sq = Math.min(iw, ih);
-        tg.drawImage(vid, (iw - sq) / 2, (ih - sq) / 2, sq, sq, 0, 0, 140, 140);
+        tg.drawImage(vid, (iw - sq) / 2, (ih - sq) / 2, sq, sq, 0, 0, 128, 128);
         return tc.toDataURL('image/jpeg', 0.8);
       }
 
+      function setCustomBgmFromBlob(blob) {
+        if (customBgmAudio) { try { customBgmAudio.pause(); } catch (e) {} }
+        if (customBgmUrl) { URL.revokeObjectURL(customBgmUrl); customBgmUrl = null; }
+        stopSynthBgm();
+        customBgmUrl = URL.createObjectURL(blob);
+        customBgmAudio = new Audio(customBgmUrl);
+        customBgmAudio.loop = true;
+        customBgmAudio.volume = 0.42;
+        if (bgmOn) customBgmAudio.play().catch(() => {});
+        syncSettingsUI();
+      }
+
       function syncSettingsUI() {
+        const btnB = document.getElementById('btnBgm');
+        btnB.textContent = bgmOn ? '🎵 เพลงประกอบ: เปิด' : '🔇 เพลงประกอบ: ปิด';
+        btnB.classList.toggle('on', bgmOn);
+
+        const topBgm = document.getElementById('btnTopBgm');
+        topBgm.textContent = bgmOn ? '🎵' : '🔇';
+        topBgm.classList.toggle('muted', !bgmOn);
+
+        document.getElementById('btnClearBgm').classList.toggle('hidden', !customBgmAudio);
+
         const btnS = document.getElementById('btnSound');
-        btnS.textContent = soundOn ? '🔊 เสียงเกม: เปิด' : '🔇 เสียงเกม: ปิด';
+        btnS.textContent = soundOn ? '🔊 เสียงเอฟเฟกต์: เปิด' : '🔇 เสียงเอฟเฟกต์: ปิด';
         btnS.classList.toggle('on', soundOn);
 
         const btnH = document.getElementById('btnHaptic');
@@ -1515,7 +1619,6 @@
         btnV.classList.toggle('on', videoAudioOn);
 
         document.getElementById('btnClearBg').classList.toggle('hidden', !bgMedia);
-
         document.querySelectorAll('.style-btn').forEach(b => b.classList.toggle('active', b.dataset.style === cubeStyle));
         document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === imageMode));
       }
@@ -1545,74 +1648,66 @@
           b.addEventListener('click', () => {
             resumeAllVideos();
             if (useClassicSolid) {
-              useClassicSolid = false;
-              safeSet('pm_classic', '0');
-              tex.enabled = true;
+              useClassicSolid = false; safeSet('pm_classic', '0'); tex.enabled = true;
             } else {
               if (tex.enabled && textures.filter(t => t.enabled).length <= 1) return;
               tex.enabled = !tex.enabled;
             }
-            refreshTrayTex();
-            renderGallery();
+            refreshTrayTex(); renderGallery();
           });
           wrap.appendChild(b);
 
           if (tex.isVideo) {
-            const vb = document.createElement('span');
-            vb.className = 'vid-badge';
-            vb.textContent = '▶';
-            wrap.appendChild(vb);
+            const vb = document.createElement('span'); vb.className = 'vid-badge'; vb.textContent = '▶'; wrap.appendChild(vb);
           }
 
           if (tex.isCustom) {
             const del = document.createElement('button');
-            del.type = 'button';
-            del.className = 'del-badge';
-            del.textContent = '×';
+            del.type = 'button'; del.className = 'del-badge'; del.textContent = '×';
             del.addEventListener('click', async (ev) => {
               ev.stopPropagation();
               if (tex.media instanceof HTMLVideoElement) tex.media.pause();
               if (tex.objectUrl) URL.revokeObjectURL(tex.objectUrl);
+              videoFrameBuffers.delete(tex.id);
               const idx = textures.findIndex(t => t.id === tex.id);
               if (idx !== -1) textures.splice(idx, 1);
               await dbDeleteMedia(tex.id);
               if (!textures.some(t => t.enabled) && textures.length) textures[0].enabled = true;
-              refreshTrayTex();
-              renderGallery();
+              clearSpriteCache(); refreshTrayTex(); renderGallery();
             });
             wrap.appendChild(del);
           }
-
           grid.appendChild(wrap);
         });
         syncSettingsUI();
       }
 
-      // Restore Saved Photos & Videos from IndexedDB on App Launch!
       async function restoreSavedMedia() {
         const records = await dbGetAllMedia();
         if (!records.length) return;
         let hasCustomTile = false;
         for (const rec of records) {
-          if (rec.kind === 'bg') {
+          if (rec.kind === 'bgm' && rec.blob) {
+            setCustomBgmFromBlob(rec.blob);
+          } else if (rec.kind === 'bg' && rec.blob) {
             if (rec.isVideo) {
               const { vid, url } = createVideoFromBlob(rec.blob);
               bgObjectUrl = url;
-              vid.addEventListener('loadeddata', () => { vid.play().catch(() => {}); bgMedia = vid; syncSettingsUI(); }, { once: true });
+              vid.addEventListener('loadeddata', () => { vid.play().catch(() => {}); bgMedia = vid; rebuildBoardBgCache(); syncSettingsUI(); }, { once: true });
               vid.play().catch(() => {});
             } else {
               const url = URL.createObjectURL(rec.blob);
               const img = new Image();
-              img.onload = () => { bgMedia = img; bgObjectUrl = url; syncSettingsUI(); };
+              img.onload = () => { bgMedia = img; bgObjectUrl = url; rebuildBoardBgCache(); syncSettingsUI(); };
               img.src = url;
             }
-          } else if (rec.kind === 'tile') {
+          } else if (rec.kind === 'tile' && rec.blob) {
             hasCustomTile = true;
             if (rec.isVideo) {
               const { vid, url } = createVideoFromBlob(rec.blob);
               textures.unshift({
                 id: rec.id, name: rec.name, isCustom: true, isVideo: true, enabled: true,
-                media: vid, objectUrl: url, thumbUrl: rec.thumbUrl || liveDemoCanvas.toDataURL('image/png'),
+                media: vid, objectUrl: url, thumbUrl: rec.thumbUrl || textures[0].thumbUrl,
               });
               vid.play().catch(() => {});
             } else {
@@ -1623,8 +1718,7 @@
                   id: rec.id, name: rec.name, isCustom: true, isVideo: false, enabled: true,
                   media: img, objectUrl: url, thumbUrl: rec.thumbUrl || url,
                 });
-                refreshTrayTex();
-                renderGallery();
+                clearSpriteCache(); refreshTrayTex(); renderGallery();
               };
               img.src = url;
             }
@@ -1632,17 +1726,14 @@
         }
         if (hasCustomTile) {
           textures.forEach(t => { if (!t.isCustom) t.enabled = false; });
-          refreshTrayTex();
-          renderGallery();
+          clearSpriteCache(); refreshTrayTex(); renderGallery();
         }
       }
 
-      // File Input: Add Custom Images / Videos
       document.getElementById('fileInput').addEventListener('change', (e) => {
         const files = Array.from(e.target.files || []).filter(f => f.type.startsWith('image/') || f.type.startsWith('video/'));
         if (!files.length) return;
-        useClassicSolid = false;
-        safeSet('pm_classic', '0');
+        useClassicSolid = false; safeSet('pm_classic', '0');
         const hadCustom = textures.some(t => t.isCustom);
         let disabledSamples = false;
 
@@ -1653,17 +1744,10 @@
             vid.addEventListener('loadeddata', async () => {
               vid.play().catch(() => {});
               const thumbUrl = captureVideoThumb(vid);
-              if (!hadCustom && !disabledSamples) {
-                disabledSamples = true;
-                textures.forEach(t => { if (!t.isCustom) t.enabled = false; });
-              }
-              textures.unshift({
-                id, name: file.name, isCustom: true, isVideo: true, enabled: true,
-                media: vid, objectUrl: url, thumbUrl,
-              });
+              if (!hadCustom && !disabledSamples) { disabledSamples = true; textures.forEach(t => { if (!t.isCustom) t.enabled = false; }); }
+              textures.unshift({ id, name: file.name, isCustom: true, isVideo: true, enabled: true, media: vid, objectUrl: url, thumbUrl });
               await dbPutMedia({ id, kind: 'tile', name: file.name, isVideo: true, blob: file, thumbUrl });
-              refreshTrayTex();
-              renderGallery();
+              refreshTrayTex(); renderGallery();
               showToast('บันทึกวิดีโอเป็นลายบล็อกแล้ว! 🎬');
             }, { once: true });
             vid.play().catch(() => {});
@@ -1671,19 +1755,12 @@
             const tmpUrl = URL.createObjectURL(file);
             const img = new Image();
             img.onload = async () => {
-              const { canvas: resCanvas, blob, thumbUrl } = await resizeImageToBlobAndCanvas(img, 512);
+              const { canvas: resCanvas, blob, thumbUrl } = await resizeImageToBlobAndCanvas(img, 384);
               URL.revokeObjectURL(tmpUrl);
-              if (!hadCustom && !disabledSamples) {
-                disabledSamples = true;
-                textures.forEach(t => { if (!t.isCustom) t.enabled = false; });
-              }
-              textures.unshift({
-                id, name: file.name, isCustom: true, isVideo: false, enabled: true,
-                media: resCanvas, thumbUrl,
-              });
+              if (!hadCustom && !disabledSamples) { disabledSamples = true; textures.forEach(t => { if (!t.isCustom) t.enabled = false; }); }
+              textures.unshift({ id, name: file.name, isCustom: true, isVideo: false, enabled: true, media: resCanvas, thumbUrl });
               if (blob) await dbPutMedia({ id, kind: 'tile', name: file.name, isVideo: false, blob, thumbUrl });
-              refreshTrayTex();
-              renderGallery();
+              clearSpriteCache(); refreshTrayTex(); renderGallery();
               showToast('บันทึกรูปภาพเป็นลายบล็อกแล้ว! 🖼️');
             };
             img.src = tmpUrl;
@@ -1697,46 +1774,40 @@
           if (textures[i].isCustom) {
             if (textures[i].media instanceof HTMLVideoElement) textures[i].media.pause();
             if (textures[i].objectUrl) URL.revokeObjectURL(textures[i].objectUrl);
+            videoFrameBuffers.delete(textures[i].id);
             await dbDeleteMedia(textures[i].id);
             textures.splice(i, 1);
           }
         }
         textures.forEach(t => t.enabled = true);
-        useClassicSolid = false;
-        safeSet('pm_classic', '0');
-        refreshTrayTex();
-        renderGallery();
+        useClassicSolid = false; safeSet('pm_classic', '0');
+        clearSpriteCache(); refreshTrayTex(); renderGallery();
         showToast('ล้างไฟล์ที่เพิ่มแล้ว');
       });
 
-      // Background Media Upload
       document.getElementById('bgFileInput').addEventListener('change', (e) => {
         const f = e.target.files && e.target.files[0];
         if (!f) return;
         if (bgMedia instanceof HTMLVideoElement) bgMedia.pause();
         if (bgObjectUrl) { URL.revokeObjectURL(bgObjectUrl); bgObjectUrl = null; }
-
         if (f.type.startsWith('video/')) {
           const { vid, url } = createVideoFromBlob(f);
           bgObjectUrl = url;
           vid.addEventListener('loadeddata', async () => {
-            vid.play().catch(() => {});
-            bgMedia = vid;
+            vid.play().catch(() => {}); bgMedia = vid; rebuildBoardBgCache();
             await dbPutMedia({ id: 'custom_bg', kind: 'bg', name: f.name, isVideo: true, blob: f });
-            syncSettingsUI();
-            showToast('ตั้งวิดีโอพื้นหลังแล้ว! 🎬');
+            syncSettingsUI(); showToast('ตั้งวิดีโอพื้นหลังแล้ว! 🎬');
           }, { once: true });
           vid.play().catch(() => {});
         } else {
           const tmpUrl = URL.createObjectURL(f);
           const img = new Image();
           img.onload = async () => {
-            const { canvas: resCanvas, blob } = await resizeImageToBlobAndCanvas(img, 720);
+            const { canvas: resCanvas, blob } = await resizeImageToBlobAndCanvas(img, 640);
             URL.revokeObjectURL(tmpUrl);
-            bgMedia = resCanvas;
+            bgMedia = resCanvas; rebuildBoardBgCache();
             if (blob) await dbPutMedia({ id: 'custom_bg', kind: 'bg', name: f.name, isVideo: false, blob });
-            syncSettingsUI();
-            showToast('ตั้งรูปพื้นหลังแล้ว! 🌄');
+            syncSettingsUI(); showToast('ตั้งรูปพื้นหลังแล้ว! 🌄');
           };
           img.src = tmpUrl;
         }
@@ -1746,59 +1817,77 @@
       document.getElementById('btnClearBg').addEventListener('click', async () => {
         if (bgMedia instanceof HTMLVideoElement) bgMedia.pause();
         if (bgObjectUrl) { URL.revokeObjectURL(bgObjectUrl); bgObjectUrl = null; }
-        bgMedia = null;
-        await dbDeleteMedia('custom_bg');
-        syncSettingsUI();
+        bgMedia = null; rebuildBoardBgCache();
+        await dbDeleteMedia('custom_bg'); syncSettingsUI();
       });
 
-      // Controls Listeners
+      // Custom MP3 BGM Upload
+      document.getElementById('bgmFileInput').addEventListener('change', async (e) => {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        bgmOn = true; safeSet('pm_bgm', '1');
+        setCustomBgmFromBlob(f);
+        await dbPutMedia({ id: 'custom_bgm', kind: 'bgm', name: f.name, blob: f });
+        showToast('เปลี่ยนเป็นเพลงของคุณแล้ว! 🎵');
+        e.target.value = '';
+      });
+
+      document.getElementById('btnClearBgm').addEventListener('click', async () => {
+        if (customBgmAudio) { try { customBgmAudio.pause(); } catch (e) {} customBgmAudio = null; }
+        if (customBgmUrl) { URL.revokeObjectURL(customBgmUrl); customBgmUrl = null; }
+        await dbDeleteMedia('custom_bgm');
+        syncSettingsUI();
+        if (bgmOn) startBgm();
+        showToast('กลับมาใช้เพลงประกอบเกมแล้ว 🎵');
+      });
+
+      function toggleBgm() {
+        bgmOn = !bgmOn;
+        safeSet('pm_bgm', bgmOn ? '1' : '0');
+        if (bgmOn) startBgm(); else stopAllBgm();
+        syncSettingsUI();
+      }
+      document.getElementById('btnBgm').addEventListener('click', toggleBgm);
+      document.getElementById('btnTopBgm').addEventListener('click', toggleBgm);
+
       document.getElementById('btnUseClassic').addEventListener('click', () => {
-        useClassicSolid = !useClassicSolid;
-        safeSet('pm_classic', useClassicSolid ? '1' : '0');
-        renderGallery();
+        useClassicSolid = !useClassicSolid; safeSet('pm_classic', useClassicSolid ? '1' : '0');
+        clearSpriteCache(); renderGallery();
       });
       document.querySelectorAll('.style-btn').forEach(b => b.addEventListener('click', () => {
-        cubeStyle = b.dataset.style;
-        safeSet('pm_style', cubeStyle);
-        syncSettingsUI();
+        cubeStyle = b.dataset.style; safeSet('pm_style', cubeStyle);
+        clearSpriteCache(); syncSettingsUI();
       }));
       document.querySelectorAll('.mode-btn').forEach(b => b.addEventListener('click', () => {
-        imageMode = b.dataset.mode;
-        safeSet('pm_mode', imageMode);
-        syncSettingsUI();
+        imageMode = b.dataset.mode; safeSet('pm_mode', imageMode); syncSettingsUI();
       }));
       document.getElementById('btnSound').addEventListener('click', () => {
-        soundOn = !soundOn;
-        safeSet('pm_sound', soundOn ? '1' : '0');
-        syncSettingsUI();
+        soundOn = !soundOn; safeSet('pm_sound', soundOn ? '1' : '0'); syncSettingsUI();
       });
       document.getElementById('btnHaptic').addEventListener('click', () => {
-        hapticOn = !hapticOn;
-        safeSet('pm_haptic', hapticOn ? '1' : '0');
-        if (hapticOn) haptic(20);
-        syncSettingsUI();
+        hapticOn = !hapticOn; safeSet('pm_haptic', hapticOn ? '1' : '0');
+        if (hapticOn) haptic(18); syncSettingsUI();
       });
       document.getElementById('btnVidAudio').addEventListener('click', () => {
         videoAudioOn = !videoAudioOn;
         textures.forEach(t => { if (t.media instanceof HTMLVideoElement) t.media.muted = !videoAudioOn; });
         if (bgMedia instanceof HTMLVideoElement) bgMedia.muted = !videoAudioOn;
-        resumeAllVideos();
-        syncSettingsUI();
+        resumeAllVideos(); syncSettingsUI();
       });
       document.getElementById('btnQuickRestart').addEventListener('click', resetGame);
       document.getElementById('btnPlayAgain').addEventListener('click', resetGame);
 
-      // Pause videos when app goes to background on Android (saves battery!)
       document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
+          stopAllBgm();
           textures.forEach(t => { if (t.media instanceof HTMLVideoElement) t.media.pause(); });
           if (bgMedia instanceof HTMLVideoElement) bgMedia.pause();
         } else {
+          if (bgmOn) startBgm();
           resumeAllVideos();
         }
       });
 
-      // Init
       syncBestUI();
       resizeCanvas();
       renderGallery();
